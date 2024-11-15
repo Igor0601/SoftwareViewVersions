@@ -29,9 +29,9 @@ namespace Prova
 		public Form1()
 		{
 			InitializeComponent();
-			bancoService = new BenchService(plantService);
-			clientService = new ClientService(plantService);
-			plantService = new PlantService(bancoService, clientService);
+			bancoService = new BenchService();
+			clientService = new ClientService();
+			plantService = new PlantService();
 			formSelezionaCliente = new FormSelezionaCliente();
 			formSelezionaPlant = new FormSelezionaPlant();
 			formGestisciCliente = new FormGestisciCliente(visualizza);

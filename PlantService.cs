@@ -12,24 +12,24 @@ namespace Prova
 	{
 		public List<Plant> plants;
 		public int plantId;
-		BenchService bancoService;
+		BenchService benchService;
 		ClientService clientService;
-		public PlantService(BenchService bancoService, ClientService clientService)
+		public PlantService(BenchService benchService, ClientService clientService)
 		{
 			plants = new List<Plant>();
-			this.bancoService = bancoService;
+			this.benchService = benchService;
 			this.clientService = clientService;
 		}
-		public void AggiungiPlant(int plantIdCliente, string plantNome, string plantNazione, string plantCitta, string plantIndirizzo, string[] plantTag) 
+		public void AggiungiPlant(int plantIdClient, string plantName, string plantState, string plantCity, string plantAddress, string[] plantTag) 
 		{
-			Add(plantNome);
+			Add(plantName);
 			plantId++;
-			Plant newPlant = new Plant(plantId, plantIdCliente, plantNome, plantNazione, plantCitta, plantIndirizzo, plantTag);
+			Plant newPlant = new Plant(plantId, plantIdClient, plantName, plantState, plantCity, plantAddress, plantTag);
 			plants.Add(newPlant);
 		}
 		public void Add(string name) 
 		{
-			foreach(Client cliente in clientService.GetClientes())
+			foreach(Client client in clientService.GetClientes())
 			{
 				foreach (Plant plant in plants)
 				{
@@ -56,7 +56,7 @@ namespace Prova
 			Plant plantDaEliminare = plants.FirstOrDefault(p => p.id == idPlantDeleted);
 			if (plantDaEliminare != null)
 			{
-				bancoService.Delete(idPlantDeleted);
+				benchService.Delete(idPlantDeleted);
 				plants.Remove(plantDaEliminare);
 			}
 		}

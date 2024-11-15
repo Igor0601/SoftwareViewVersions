@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.Shell.Interop;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Security;
@@ -12,18 +13,16 @@ namespace Prova
 		public List<Client> clients;
 		public int clientId;
 		PlantService plantService;
-
 		public ClientService(PlantService plantService) 
 		{
 			this.clients = new List<Client>();
 			this.plantService = plantService;
 		}
-
-		public void AddCliente(string clienteNome, string clienteRagioneFiscale, string[] clienteTag) 
+		public void AddCliente(string clientName, string clientRagioneFiscale, string[] clientTag) 
 		{
-			Add(clienteNome);
+			Add(clientName);
 			clientId++;
-			Client newClient = new Client(clientId, clienteNome, clienteRagioneFiscale, clienteTag);
+			Client newClient = new Client(clientId, clientName, clientRagioneFiscale, clientTag);
 			clients.Add(newClient);
 		}
 		public void Add(string name) 
