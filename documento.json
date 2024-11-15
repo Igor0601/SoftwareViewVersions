@@ -1,0 +1,187 @@
+[
+    {
+        "Name": "Loccioni.Aulos.Hardware.Vector.CANoeResource",
+        "Packages": [
+            {
+                "Include": "Loccioni.Aulos.Core",
+                "Version": "3.3.2"
+            },
+            {
+                "Include": "Loccioni.Aulos.Hardware.Beckhoff",
+                "Version": "3.0.0"
+            },
+            {
+                "Include": "Loccioni.Aulos.Part.Programs.WebClient",
+                "Version": "4.0.0-develop.156"
+            }
+        ]
+    },
+    {
+        "Name": "Loccioni.Aulos.Hardware.Vector.FDX",
+        "Packages": [
+            {
+                "Include": "Loccioni.Aulos.Core",
+                "Version": "3.3.2"
+            },
+            {
+                "Include": "Loccioni.Aulos.Part.Programs.WebClient",
+                "Version": "4.0.0-develop.156"
+            },
+            {
+                "Include": "Loccioni.Aulos.Part.Live.WebClient",
+                "Version": "4.0.0-develop.156"
+            }
+        ]
+    },
+    {
+        "Name": "Locconi.LAM19001.CamplingToolsUtilities",
+        "Packages": [
+            {
+                "Include": "Loccioni.Aulos.Core",
+                "Version": "3.3.2"
+            },
+            {
+                "Include": "Loccioni.Aulos.Part.Live.Client",
+                "Version": "4.0.0-develop.156"
+            },
+            {
+                "Include": "Loccioni.Aulos.Part.Live.WebClient",
+                "Version": "4.0.0-develop.156"
+            }
+        ]
+    },
+    {
+        "Name": "Locconi.LAM19001.Tool.DynamoApproach",
+        "Packages": [
+            {
+                "Include": "Loccioni.Aulos.Part.Model.Client",
+                "Version": "4.0.0-develop.156"
+            },
+            {
+                "Include": "Loccioni.Aulos.Part.Model.WebClient",
+                "Version": "4.0.0-develop.156"
+            }
+        ]
+    },
+    {
+        "Name": "Locconi.LAM19001.Tool.MotorCampling",
+        "Packages": [
+            {
+                "Include": "Loccioni.Aulos.Part.Routing.Client",
+                "Version": "4.0.0-develop.156"
+            },
+            {
+                "Include": "Loccioni.Aulos.Part.Routing.WebClient",
+                "Version": "4.0.0-develop.156"
+            }
+        ]
+    },
+    {
+        "Name": "Locconi.LAM19001.Tool.NVHCampling",
+        "Packages": [
+            {
+                "Include": "Loccioni.Aulos.Part.Tooling.FileSystemRepository",
+                "Version": "4.0.0-develop.156"
+            },
+            {
+                "Include": "Loccioni.Aulos.Part.Tooling.WebClient",
+                "Version": "4.0.0-develop.156"
+            }
+        ]
+    },
+    {
+        "Name": "Locconi.LAM19001.Tool.TrolleyCampling",
+        "Packages": [
+            {
+                "Include": "Loccioni.Aulos.Part.Hardware.Client",
+                "Version": "4.0.0-develop.156"
+            },
+            {
+                "Include": "Loccioni.Aulos.Part.Hardware.WebClient",
+                "Version": "4.0.0-develop.156"
+            }
+        ]
+    },
+    {
+        "Name": "Locconi.LAM19001.Tool.NVHAnalysis",
+        "Packages": []
+    },
+    {
+        "Name": "Loccioni.Electrics.Device.DataManReader",
+        "Packages": [
+            {
+                "Include": "Loccioni.Aulos.UI.WindowsForms.Synoptic.Hydraulic",
+                "Version": "3.3.2"
+            },
+            {
+                "Include": "Loccioni.Aulos.UI.WindowsForms.Synoptic.Electrical",
+                "Version": "3.3.2"
+            }
+        ]
+    },
+    {
+        "Name": "Loccioni.Electrics.Device.PowerSupply.TDKLambda.GEN",
+        "Packages": [
+            {
+                "Include": "Loccioni.Aulos.UI.WebView2",
+                "Version": "3.3.0"
+            }
+        ]
+    },
+    {
+        "Name": "Locconi.LAM19001",
+        "Packages": [
+            {
+                "Include": "Loccioni.Electrics.Device.Relay",
+                "Version": "3.3.0"
+            },
+            {
+                "Include": "Loccioni.Fluidics.Device.Tire.Digital",
+                "Version": "3.3.0"
+            }
+        ]
+    },
+    {
+        "Name": "Locconi.LAM19001.CustomStateMachine",
+        "Packages": []
+    },
+    {
+        "Name": "Locconi.LAM19001.Part",
+        "Packages": [
+            {
+                "Include": "Loccioni.Fluidics.Device.TwoPositionsValve.SingleActing",
+                "Version": "3.3.0"
+            },
+            {
+                "Include": "Loccioni.Fluidics.Device.TankSensors",
+                "Version": "3.3.0"
+            }
+        ]
+    },
+    {
+        "Name": "Locconi.LAM19001.Reports.Excel",
+        "Packages": [
+            {
+                "Include": "Loccioni.Software.Device.Regulator.Analog",
+                "Version": "3.3.0"
+            }
+        ]
+    },
+    {
+        "Name": "Locconi.LAM19001.Station.MotorTest",
+        "Packages": [
+            {
+                "Include": "Loccioni.Aulos.Station.Part.Client",
+                "Version": "4.0.0-develop.156"
+            },
+            {
+                "Include": "Loccioni.Aulos.Station.Repository",
+                "Version": "3.3.2"
+            }
+        ]
+    },
+    {
+        "Name": "Locconi.LAM19001.StationGroup.Bench",
+        "Packages": []
+    }
+]
