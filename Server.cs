@@ -8,42 +8,42 @@ namespace Prova
 {
 	public class Server
 	{
-		public int Id { get; set; }
-		public string Nome { get; set; }
-		public int PlantId { get; set; }
-		public string Versione { get; set; }
-		public string Supervisor { get; set; }
-		public string Configurator { get; set; }
-		public string WorkerHealth { get; set; }
-		public string WorkerModels { get; set; }
-		public string WorkerPrograms { get; set; }
-		public string WorkerResource { get; set; }
-		public string WorkerResults { get; set; }
-		public string WorkerTopology { get; set; }
-		public string WorkerWip { get; set; }
-		public string UploaderHealth { get; set; }
-		public string UploaderReport { get; set; }
-		public string Link { get; set; }
-		public string Tags { get; set; }
-		public Server(int id, string nome, int plantId, string versione, string supervisor, string configurator, string workerHealth, string workerModels, string workerPrograms, string workerResource, string workerResults, string workerTopology, string workerWip, string uploaderHealth, string uploaderReport, string link, string tags)
+		public int id { get; set; }
+		public string name { get; set; }
+		public int plantId { get; set; }
+		public string version { get; set; }
+		public string supervisor { get; set; }
+		public string configurator { get; set; }
+		public string workerHealth { get; set; }
+		public string workerModels { get; set; }
+		public string workerPrograms { get; set; }
+		public string workerResource { get; set; }
+		public string workerResults { get; set; }
+		public string workerTopology { get; set; }
+		public string workerWip { get; set; }
+		public string uploaderHealth { get; set; }
+		public string uploaderReport { get; set; }
+		public string link { get; set; }
+		public string[] tags = new string[10];
+		public Server(int id, string name, int plantId, string version, string supervisor, string configurator, string workerHealth, string workerModels, string workerPrograms, string workerResource, string workerResults, string workerTopology, string workerWip, string uploaderHealth, string uploaderReport, string link, string[] tags)
 		{
-			Id = id;
-			Nome = nome;
-			PlantId = plantId;
-			Versione = versione;
-			Supervisor = supervisor;
-			Configurator = configurator;
-			WorkerHealth = workerHealth;
-			WorkerModels = workerModels;
-			WorkerPrograms = workerPrograms;
-			WorkerResource = workerResource;
-			WorkerResults = workerResults;
-			WorkerTopology = workerTopology;
-			WorkerWip = workerWip;
-			UploaderHealth = uploaderHealth;
-			UploaderReport = uploaderReport;
-			Link = link;
-			Tags = tags;
+			this.id = id;
+			this.name = name;
+			this.plantId = plantId;
+			this.version = version;
+			this.supervisor = supervisor;
+			this.configurator = configurator;
+			this.workerHealth = workerHealth;
+			this.workerModels = workerModels;
+			this.workerPrograms = workerPrograms;
+			this.workerResource = workerResource;
+			this.workerResults = workerResults;
+			this.workerTopology = workerTopology;
+			this.workerWip = workerWip;
+			this.uploaderHealth = uploaderHealth;
+			this.uploaderReport = uploaderReport;
+			this.link = link;
+			this.tags = tags;
 		}
 	}
 }

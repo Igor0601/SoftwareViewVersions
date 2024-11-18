@@ -17,7 +17,7 @@ namespace Prova
 		{
 			InitializeComponent();
 		}
-		public void loadListView(PlantService plantService) 
+		public void loadListView(LoccioniDbContext ldb) 
 		{
 			listViewPlants.View = View.Details;
 			listViewPlants.FullRowSelect = true;
@@ -26,13 +26,13 @@ namespace Prova
 			listViewPlants.Columns.Add($"Nome: ", 150);
 			listViewPlants.Items.Clear();
 
-			foreach (Plant plant in plantService.GetPlants()) 
+			foreach (Plant plant in ldb.plants) 
 			{
-				ListViewItem plantItem = new ListViewItem($"{plant.Id}")
+				ListViewItem plantItem = new ListViewItem($"{plant.id}")
 				{
-					Name = plant.Id.ToString()
+					Name = plant.id.ToString()
 				};
-				plantItem.SubItems.Add($"{plant.Nome}");
+				plantItem.SubItems.Add($"{plant.name}");
 				listViewPlants.Items.Add(plantItem);
 			}
 		}

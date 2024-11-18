@@ -6,7 +6,7 @@
 		public string name { get; set; }
 		public string ragioneFiscale { get; set; }
 
-		public string[] tags = new string[10];
+		public string[] tags { get; set; } = new string[10];
 
 		public Client(int id, string name, string ragioneFiscale, string[] tags)
 		{

@@ -30,7 +30,7 @@ namespace Prova
 			else
 				ButtonModificaBanco.Visible = false;
 		}
-		public void loadListView(BenchService bancoService)
+		public void loadListView(LoccioniDbContext ldb)
 		{
 			listViewGestisciBanco.View = View.Details;
 			listViewGestisciBanco.FullRowSelect = true;
@@ -39,15 +39,15 @@ namespace Prova
 			listViewGestisciBanco.Columns.Add($"Nome: ", 150);
 			listViewGestisciBanco.Items.Clear();
 
-			foreach (Bench banco in bancoService.GetBanchi())
+			foreach (Bench bench in ldb.benches)
 			{
-				ListViewItem bancoItem = new ListViewItem($"{banco.Id}")
+				ListViewItem bancoItem = new ListViewItem($"{bench.id}")
 				{
-					Name = banco.Id.ToString()
+					Name = bench.id.ToString()
 				};
-				bancoItem.SubItems.Add($"{banco.Nome}");
-				bancoItem.SubItems.Add($"{banco.UrlGit}");
-				bancoItem.SubItems.Add($"{banco.Tags[0]}");
+				bancoItem.SubItems.Add($"{bench.name}");
+				bancoItem.SubItems.Add($"{bench.urlGit}");
+				bancoItem.SubItems.Add($"{bench.tags[0]}");
 				listViewGestisciBanco.Items.Add(bancoItem);
 			}
 		}

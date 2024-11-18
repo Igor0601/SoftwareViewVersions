@@ -3,41 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Prova
 {
 	public class BenchService
 	{
-		List<Bench> benches;
 		public int benchId;
-		PlantService plantService;
-		public BenchService(PlantService plantService)
+		LoccioniDbContext ldb;
+		public BenchService()
 		{
-			this.benches = new List<Bench>();
-			this.plantService = plantService;
+			ldb = new LoccioniDbContext();
 		}
-		public void AggiungiBanco(int bancoIdPlant, string bancoNome, string bancoUrlgit, string[] bancoTag) 
+		public void AddBench(int benchIdPlant, string benchName, string benchurlGit, string[] benchTag) 
 		{
-			Add(bancoNome);
+			Add(benchName);
 			benchId++;
-			Bench newBench = new Bench(benchId, bancoIdPlant, bancoNome, bancoUrlgit, bancoTag);
-			benches.Add(newBench);	
+			ldb.Add(new Bench(benchId, benchIdPlant, benchName, benchurlGit, benchTag));	
 		}
 		public void Add(string name) 
 		{
-			foreach(Plant plant in plantService.GetPlants())
+			foreach(Plant plant in ldb.plants)
 			{
-				foreach (Bench bench in benches)
+				foreach (Bench bench in ldb.benches)
 				{
 					if (bench.name == name)
 						MessageBox.Show("Errore, banco già esiste in questo plant");
 				}
 			}
-			
 		}
 		public void AggiornaBanco(int IdBancoModificato, string NomeBancoModificato, string UrlGitBancoModificato, string[] TagBancoModificato) 
 		{
-			Bench bancoDaModificare = benches.FirstOrDefault(b => b.id == IdBancoModificato);
+			Bench bancoDaModificare = ldb.benches.FirstOrDefault(b => b.id == IdBancoModificato);
 			if(bancoDaModificare != null)
 			{
 				bancoDaModificare.name = NomeBancoModificato;
@@ -47,14 +44,14 @@ namespace Prova
 		}
 		public void DeleteBanco(int idBancDeleted) 
 		{
-			Bench bancoDaEliminare = benches.FirstOrDefault(b => b.id == idBancDeleted);
+			Bench bancoDaEliminare = ldb.benches.FirstOrDefault(b => b.id == idBancDeleted);
 			if (bancoDaEliminare != null) 
-				benches.Remove(bancoDaEliminare);
+				ldb.benches.Remove(bancoDaEliminare);
 		}
 		public void Delete(int idPlantDeleted) 
 		{
 			List<int> benchId = new List<int>();
-			foreach (Bench bench in benches) 
+			foreach (Bench bench in ldb.benches) 
 			{
 				if(bench.idPlant ==  idPlantDeleted)
 					benchId.Add(bench.idPlant);
@@ -62,9 +59,9 @@ namespace Prova
 			for (int i = 0; i < benchId.Count; i++)
 				DeleteBanco(benchId[i]);
 		}
-		public List<Bench> GetBanchi()
+		public LoccioniDbContext GetBenches()
 		{
-			return benches;
+			return ldb;
 		}
 	}
 }

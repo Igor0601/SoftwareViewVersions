@@ -14,7 +14,7 @@ namespace Prova
 	{
 		FormModificaCliente formModificaCliente;
 		int id;
-		string nome;
+		string name;
 		string ragioneFiscale;
 		string[] tag;
 
@@ -27,8 +27,7 @@ namespace Prova
 			else
 				ButtonModificaCliente.Visible = false;
 		}
-
-		public void loadListView(ClientService clientService)
+		public void loadListView(LoccioniDbContext ldb)
 		{
 			listViewGestisciCliente.View = View.Details;
 			listViewGestisciCliente.FullRowSelect = true;
@@ -37,15 +36,15 @@ namespace Prova
 			listViewGestisciCliente.Columns.Add("Nome", 150);
 			listViewGestisciCliente.Items.Clear();
 
-			foreach (Client cliente in clientService.GetClientes())
+			foreach (Client cliente in ldb.clients)
 			{
-				ListViewItem clienteItem = new ListViewItem($"{cliente.Id}")
+				ListViewItem clienteItem = new ListViewItem($"{cliente.id}")
 				{
-					Name = cliente.Id.ToString()
+					Name = cliente.id.ToString()
 				};
-				clienteItem.SubItems.Add($"{cliente.Nome}");
-				clienteItem.SubItems.Add($"{cliente.RagioneFiscale}");
-				clienteItem.SubItems.Add($"{cliente.Tags[0]}");
+				clienteItem.SubItems.Add($"{cliente.name}");
+				clienteItem.SubItems.Add($"{cliente.ragioneFiscale}");
+				clienteItem.SubItems.Add($"{cliente.tags[0]}");
 				listViewGestisciCliente.Items.Add(clienteItem);
 			}
 		}
@@ -59,13 +58,13 @@ namespace Prova
 				formModificaCliente.ShowDialog();
 			}
 			id = formModificaCliente.GetId();
-			nome = formModificaCliente.GetNome();
+			name = formModificaCliente.GetNome();
 			ragioneFiscale = formModificaCliente.GetRagioneFiscale();
 			tag = formModificaCliente.GetTag();
 			this.Close();
 		}
 		public int GetId() {return id;}
-		public string GetNome() {return nome;}
+		public string GetNome() {return name;}
 		public string GetRagioneFiscale() {return ragioneFiscale;}
 		public string[] GetTag() {return tag;}
 

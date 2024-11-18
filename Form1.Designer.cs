@@ -33,7 +33,7 @@
 		private System.Windows.Forms.TextBox textBoxTagBanco;
 		private System.Windows.Forms.Button ButtonAggiungiCliente;
 		private System.Windows.Forms.Button ButtonAggiungiPlant;
-		private System.Windows.Forms.Button ButtonAggiungiBanco;
+		private System.Windows.Forms.Button ButtonAddBench;
 		private System.Windows.Forms.TreeView treeView1;
 
 		/// <summary>
@@ -84,7 +84,7 @@
 			textBoxTagBanco = new TextBox();
 			ButtonAggiungiCliente = new Button();
 			ButtonAggiungiPlant = new Button();
-			ButtonAggiungiBanco = new Button();
+			ButtonAddBench = new Button();
 			treeView1 = new TreeView();
 			ButtonModificaCliente = new Button();
 			ButtonGestisciPlant = new Button();
@@ -100,7 +100,7 @@
 			// CLIENTE
 			// 
 			CLIENTE.AutoSize = true;
-			CLIENTE.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+			CLIENTE.Font = new Font("Segoe UI", 15F);
 			CLIENTE.Location = new Point(129, 28);
 			CLIENTE.Name = "CLIENTE";
 			CLIENTE.Size = new Size(107, 35);
@@ -158,7 +158,7 @@
 			// PLANT
 			// 
 			PLANT.AutoSize = true;
-			PLANT.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+			PLANT.Font = new Font("Segoe UI", 15F);
 			PLANT.Location = new Point(460, 28);
 			PLANT.Name = "PLANT";
 			PLANT.Size = new Size(90, 35);
@@ -248,7 +248,7 @@
 			// BANCO
 			// 
 			BANCO.AutoSize = true;
-			BANCO.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+			BANCO.Font = new Font("Segoe UI", 15F);
 			BANCO.Location = new Point(817, 28);
 			BANCO.Name = "BANCO";
 			BANCO.Size = new Size(97, 35);
@@ -305,7 +305,7 @@
 			// 
 			// ButtonAggiungiCliente
 			// 
-			ButtonAggiungiCliente.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+			ButtonAggiungiCliente.Font = new Font("Segoe UI", 15F);
 			ButtonAggiungiCliente.Location = new Point(15, 257);
 			ButtonAggiungiCliente.Name = "ButtonAggiungiCliente";
 			ButtonAggiungiCliente.Size = new Size(243, 55);
@@ -316,7 +316,7 @@
 			// 
 			// ButtonAggiungiPlant
 			// 
-			ButtonAggiungiPlant.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+			ButtonAggiungiPlant.Font = new Font("Segoe UI", 15F);
 			ButtonAggiungiPlant.Location = new Point(369, 344);
 			ButtonAggiungiPlant.Name = "ButtonAggiungiPlant";
 			ButtonAggiungiPlant.Size = new Size(225, 55);
@@ -325,16 +325,16 @@
 			ButtonAggiungiPlant.UseVisualStyleBackColor = true;
 			ButtonAggiungiPlant.Click += ButtonAddPlant_Click;
 			// 
-			// ButtonAggiungiBanco
+			// ButtonAddBench
 			// 
-			ButtonAggiungiBanco.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-			ButtonAggiungiBanco.Location = new Point(695, 264);
-			ButtonAggiungiBanco.Name = "ButtonAggiungiBanco";
-			ButtonAggiungiBanco.Size = new Size(247, 55);
-			ButtonAggiungiBanco.TabIndex = 37;
-			ButtonAggiungiBanco.Text = "AGGIUNGI BANCO";
-			ButtonAggiungiBanco.UseVisualStyleBackColor = true;
-			ButtonAggiungiBanco.Click += ButtonAddBanco_Click;
+			ButtonAddBench.Font = new Font("Segoe UI", 15F);
+			ButtonAddBench.Location = new Point(695, 264);
+			ButtonAddBench.Name = "ButtonAddBench";
+			ButtonAddBench.Size = new Size(247, 55);
+			ButtonAddBench.TabIndex = 37;
+			ButtonAddBench.Text = "AGGIUNGI BANCO";
+			ButtonAddBench.UseVisualStyleBackColor = true;
+			ButtonAddBench.Click += ButtonAddBench_Click;
 			// 
 			// treeView1
 			// 
@@ -345,7 +345,7 @@
 			// 
 			// ButtonModificaCliente
 			// 
-			ButtonModificaCliente.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+			ButtonModificaCliente.Font = new Font("Segoe UI", 15F);
 			ButtonModificaCliente.Location = new Point(15, 328);
 			ButtonModificaCliente.Name = "ButtonModificaCliente";
 			ButtonModificaCliente.Size = new Size(243, 51);
@@ -356,7 +356,7 @@
 			// 
 			// ButtonGestisciPlant
 			// 
-			ButtonGestisciPlant.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+			ButtonGestisciPlant.Font = new Font("Segoe UI", 15F);
 			ButtonGestisciPlant.Location = new Point(369, 415);
 			ButtonGestisciPlant.Name = "ButtonGestisciPlant";
 			ButtonGestisciPlant.Size = new Size(225, 59);
@@ -367,7 +367,7 @@
 			// 
 			// ButtonGestisciBanco
 			// 
-			ButtonGestisciBanco.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+			ButtonGestisciBanco.Font = new Font("Segoe UI", 15F);
 			ButtonGestisciBanco.Location = new Point(695, 329);
 			ButtonGestisciBanco.Name = "ButtonGestisciBanco";
 			ButtonGestisciBanco.Size = new Size(247, 55);
@@ -378,7 +378,7 @@
 			// 
 			// ButtonDeleteClient
 			// 
-			ButtonDeleteClient.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+			ButtonDeleteClient.Font = new Font("Segoe UI", 15F);
 			ButtonDeleteClient.Location = new Point(15, 395);
 			ButtonDeleteClient.Name = "ButtonDeleteClient";
 			ButtonDeleteClient.Size = new Size(242, 51);
@@ -389,7 +389,7 @@
 			// 
 			// ButtonDeletePlant
 			// 
-			ButtonDeletePlant.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+			ButtonDeletePlant.Font = new Font("Segoe UI", 15F);
 			ButtonDeletePlant.Location = new Point(369, 492);
 			ButtonDeletePlant.Name = "ButtonDeletePlant";
 			ButtonDeletePlant.Size = new Size(225, 59);
@@ -400,7 +400,7 @@
 			// 
 			// ButtonDeleteBanco
 			// 
-			ButtonDeleteBanco.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+			ButtonDeleteBanco.Font = new Font("Segoe UI", 15F);
 			ButtonDeleteBanco.Location = new Point(695, 396);
 			ButtonDeleteBanco.Name = "ButtonDeleteBanco";
 			ButtonDeleteBanco.Size = new Size(247, 55);
@@ -454,7 +454,7 @@
 			Controls.Add(ButtonGestisciPlant);
 			Controls.Add(ButtonModificaCliente);
 			Controls.Add(treeView1);
-			Controls.Add(ButtonAggiungiBanco);
+			Controls.Add(ButtonAddBench);
 			Controls.Add(ButtonAggiungiPlant);
 			Controls.Add(ButtonAggiungiCliente);
 			Controls.Add(textBoxTagBanco);

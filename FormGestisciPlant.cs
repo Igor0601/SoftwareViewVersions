@@ -28,7 +28,7 @@ namespace Prova
 			else
 				ButtonModificaPlant.Visible = false;
 		}
-		public void loadListView(PlantService plantService)
+		public void loadListView(LoccioniDbContext ldb)
 		{
 			listViewGestisciPlant.View = View.Details;
 			listViewGestisciPlant.FullRowSelect = true;
@@ -37,17 +37,17 @@ namespace Prova
 			listViewGestisciPlant.Columns.Add($"Nome: ", 150);
 			listViewGestisciPlant.Items.Clear();
 
-			foreach (Plant plant in plantService.GetPlants())
+			foreach (Plant plant in ldb.plants)
 			{
-				ListViewItem plantItem = new ListViewItem($"{plant.Id}")
+				ListViewItem plantItem = new ListViewItem($"{plant.id}")
 				{
-					Name = plant.Id.ToString()
+					Name = plant.id.ToString()
 				};
-				plantItem.SubItems.Add($"{plant.Nome}");
-				plantItem.SubItems.Add($"{plant.Nazione}");
-				plantItem.SubItems.Add($"{plant.Citta}");
-				plantItem.SubItems.Add($"{plant.Indirizzo}");
-				plantItem.SubItems.Add($"{plant.Tags[0]}");
+				plantItem.SubItems.Add($"{plant.name}");
+				plantItem.SubItems.Add($"{plant.state}");
+				plantItem.SubItems.Add($"{plant.city}");
+				plantItem.SubItems.Add($"{plant.address}");
+				plantItem.SubItems.Add($"{plant.tags[0]}");
 				listViewGestisciPlant.Items.Add(plantItem);
 			}
 		}

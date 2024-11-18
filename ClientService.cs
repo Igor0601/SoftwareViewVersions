@@ -5,29 +5,30 @@ using System.Linq;
 using System.Net.Security;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Prova
 {
 	public class ClientService
 	{
-		public List<Client> clients;
 		public int clientId;
+		LoccioniDbContext ldb;
 		PlantService plantService;
 		public ClientService(PlantService plantService) 
 		{
-			this.clients = new List<Client>();
 			this.plantService = plantService;
+			ldb = new LoccioniDbContext();
 		}
 		public void AddCliente(string clientName, string clientRagioneFiscale, string[] clientTag) 
 		{
-			Add(clientName);
 			clientId++;
-			Client newClient = new Client(clientId, clientName, clientRagioneFiscale, clientTag);
-			clients.Add(newClient);
+			Add(clientName);
+			ldb.Add(new Client(clientId, clientName, clientRagioneFiscale, clientTag));
+			ldb.SaveChanges();
 		}
 		public void Add(string name) 
 		{
-			foreach (Client client in clients) 
+			foreach (Client client in ldb.clients) 
 			{ 
 				if(client.name == name)
 				{
@@ -37,26 +38,28 @@ namespace Prova
 		}
 		public void AggiornaCliente(int IdClienteModificato, string NomeClienteModificato, string RagioneFiscaleClienteModificato, string[] TagClienteModificato) 
 		{
-			Client clienteDaModificare = clients.FirstOrDefault(c => c.id == IdClienteModificato);
+			Client clienteDaModificare = ldb.clients.FirstOrDefault(c => c.id == IdClienteModificato);
 			if (clienteDaModificare != null) 
 			{
 				clienteDaModificare.name = NomeClienteModificato;
 				clienteDaModificare.ragioneFiscale = RagioneFiscaleClienteModificato;
 				clienteDaModificare.tags = TagClienteModificato;	
 			}
+			ldb.SaveChanges();
 		}
 		public void DeleteClient(int idClientDeleted) 
 		{
-			Client client = clients.FirstOrDefault(c => c.id == idClientDeleted);
+			Client client = ldb.clients.FirstOrDefault(c => c.id == idClientDeleted);
 			if(client != null)
 			{
 				plantService.Delete(idClientDeleted);
-				clients.Remove(client);
+				ldb.Remove(client);
+				ldb.SaveChanges();
 			}
 		}
-		public List<Client> GetClientes()
+		public LoccioniDbContext GetClientes()
 		{
-			return clients;
+			return ldb;
 		}
 	}
 }

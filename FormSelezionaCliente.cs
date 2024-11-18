@@ -14,7 +14,7 @@ namespace Prova
 {
 	public partial class FormSelezionaCliente : Form
 	{
-		int idCliente;
+		int idClient;
 		public FormSelezionaCliente()
 		{
 			InitializeComponent();
@@ -34,7 +34,7 @@ namespace Prova
 
 			int numeroClienti1 = clientService1.GetClientes().Count();*/
 		}
-		public void loadListView(ClientService clientService)
+		public void loadListView(LoccioniDbContext ldb)
 		{
 			listViewClienti.View = View.Details;
 			listViewClienti.FullRowSelect = true;
@@ -43,27 +43,27 @@ namespace Prova
 			listViewClienti.Columns.Add("Nome", 150);
 			listViewClienti.Items.Clear();
 
-			foreach (Client cliente in clientService.GetClientes())
+			foreach (Client client in ldb.clients)
 			{
-				ListViewItem clienteItem = new ListViewItem($"{cliente.Id}")
+				ListViewItem clientItem = new ListViewItem($"{client.id}")
 				{
-					Name = cliente.Id.ToString()
+					Name = client.id.ToString()
 				};
-				clienteItem.SubItems.Add($"{cliente.Nome}");
-				listViewClienti.Items.Add(clienteItem);
+				clientItem.SubItems.Add($"{client.name}");
+				listViewClienti.Items.Add(clientItem);
 			}
 		}
 		public void ButtonIdCliente_Click(object sender, EventArgs e)
 		{
 			if(listViewClienti.SelectedItems.Count > 0)
 			{
-				idCliente = int.Parse(listViewClienti.SelectedItems[0].Text);
+				idClient = int.Parse(listViewClienti.SelectedItems[0].Text);
 			}
 			this.Close();
 		}
 		public int GetIdClientes() 
 		{
-			return idCliente;
+			return idClient;
 		}
 	}
 }

@@ -10,38 +10,34 @@ namespace Prova
 {
 	public class PlantService
 	{
-		public List<Plant> plants;
 		public int plantId;
+		LoccioniDbContext ldb;
 		BenchService benchService;
-		ClientService clientService;
-		public PlantService(BenchService benchService, ClientService clientService)
+		public PlantService( BenchService benchService)
 		{
-			plants = new List<Plant>();
+			
 			this.benchService = benchService;
-			this.clientService = clientService;
 		}
 		public void AggiungiPlant(int plantIdClient, string plantName, string plantState, string plantCity, string plantAddress, string[] plantTag) 
 		{
 			Add(plantName);
 			plantId++;
-			Plant newPlant = new Plant(plantId, plantIdClient, plantName, plantState, plantCity, plantAddress, plantTag);
-			plants.Add(newPlant);
+			ldb.Add(new Plant(plantId, plantIdClient, plantName, plantState, plantCity, plantAddress, plantTag));
 		}
 		public void Add(string name) 
 		{
-			foreach(Client client in clientService.GetClientes())
+			foreach(Client client in ldb.clients)
 			{
-				foreach (Plant plant in plants)
+				foreach (Plant plant in ldb.plants)
 				{
 					if (plant.name == name)
 						MessageBox.Show("Errore, Plant già esistente in questo cliente");
 				}
 			}
-			
 		}
 		public void AggiornaPlant(int IdPlantModificato, string NomePlantModificato, string NazionePlantModificato, string CittaPlantModificato, string IndirizzoPlantModificato, string[] TagPlantModificato) 
 		{
-			Plant plantDaModificare = plants.FirstOrDefault(p => p.id == IdPlantModificato);
+			Plant plantDaModificare = ldb.plants.FirstOrDefault(p => p.id == IdPlantModificato);
 			if(plantDaModificare != null)
 			{
 				plantDaModificare.name = NomePlantModificato;
@@ -53,17 +49,17 @@ namespace Prova
 		}
 		public void DeletePlant(int idPlantDeleted) 
 		{
-			Plant plantDaEliminare = plants.FirstOrDefault(p => p.id == idPlantDeleted);
+			Plant plantDaEliminare = ldb.plants.FirstOrDefault(p => p.id == idPlantDeleted);
 			if (plantDaEliminare != null)
 			{
 				benchService.Delete(idPlantDeleted);
-				plants.Remove(plantDaEliminare);
+				ldb.plants.Remove(plantDaEliminare);
 			}
 		}
 		public void Delete(int idClientDeleted) 
 		{
 			List<int> plantId = new List<int>();
-			foreach(Plant plant in plants) 
+			foreach(Plant plant in ldb.plants) 
 			{
 				if(plant.idClient == idClientDeleted)
 					plantId.Add(plant.idClient);
@@ -71,9 +67,10 @@ namespace Prova
 			for(int i = 0; i < plantId.Count; i++)
 				DeletePlant(plantId[i]);
 		}
-		public List<Plant> GetPlants()
-		{
-			return plants;
+		public LoccioniDbContext GetPlants()
+		{ 
+			return ldb;
 		}
+		
 	}
 }

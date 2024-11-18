@@ -8,7 +8,7 @@
 		public string state { get; set; }
 		public string city { get; set; }
 		public string address { get; set; }
-		public string[] tags = new string[10];
+		public string[] tags { get; set; } = new string[10];
 		public Plant(int id, int idClient, string name, string state, string city, string address, string[] tags)
 		{
 			this.id = id;
