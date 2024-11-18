@@ -19,9 +19,16 @@ namespace Prova
 			this.plantService = plantService;
 			ldb = new LoccioniDbContext();
 		}
-		public void AddCliente(string clientName, string clientRagioneFiscale, string[] clientTag) 
+		public void AddClient(string clientName, string clientRagioneFiscale, string[] clientTag) 
 		{
 			clientId++;
+			foreach (Client client in ldb.clients) 
+			{
+				if (clientId == client.id)
+				{
+					clientId++;
+				}
+			}
 			Add(clientName);
 			ldb.Add(new Client(clientId, clientName, clientRagioneFiscale, clientTag));
 			ldb.SaveChanges();
@@ -45,6 +52,7 @@ namespace Prova
 				clienteDaModificare.ragioneFiscale = RagioneFiscaleClienteModificato;
 				clienteDaModificare.tags = TagClienteModificato;	
 			}
+			//ldb.Update(new Client(clienteDaModificare.id, clienteDaModificare.name, clienteDaModificare.ragioneFiscale, clienteDaModificare.tags));
 			ldb.SaveChanges();
 		}
 		public void DeleteClient(int idClientDeleted) 

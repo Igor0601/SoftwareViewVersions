@@ -22,7 +22,9 @@ namespace Prova
 		FormGestisciCliente formGestisciCliente;
 		FormGestisciPlant formGestisciPlant;
 		FormGestisciBanco formGestisciBanco;
-		LoccioniDbContext ldb;
+		LoccioniDbContext ldbClients;
+		LoccioniDbContext ldbPlants;
+		LoccioniDbContext ldbBenches;
 		Random random = new Random();
 		public bool visualizza;
 		public Form1()
@@ -36,9 +38,7 @@ namespace Prova
 			formGestisciCliente = new FormGestisciCliente(visualizza);
 			formGestisciPlant = new FormGestisciPlant(visualizza);
 			formGestisciBanco = new FormGestisciBanco(visualizza);
-			ldb = clientService.GetClientes();
-			ldb = plantService.GetPlants();
-			ldb = benchService.GetBenches();
+			ldbClients = new LoccioniDbContext();
 		}
 		private void ButtonTextBoxesClient_Click(object sender, EventArgs e)
 		{
@@ -58,9 +58,9 @@ namespace Prova
 			string[] clienteTag = new string[1];
 			clienteTag[0] = textBoxTagCliente.Text;
 			
-			clientService.AddCliente(clienteNome, clienteRagioneFiscale, clienteTag);
+			clientService.AddClient(clienteNome, clienteRagioneFiscale, clienteTag);
 			loadTreeView();
-			formSelezionaCliente.loadListView(ldb);
+			formSelezionaCliente.loadListView(ldbClients);
 			
 			textBoxNomeCliente.Clear();
 			textBoxRagioneFiscaleCliente.Clear();
@@ -85,7 +85,7 @@ namespace Prova
 			formSelezionaCliente = new FormSelezionaCliente();
 
 			//Gli passo l'oggetto clientService
-			formSelezionaCliente.loadListView(ldb);
+			formSelezionaCliente.loadListView(ldbPlants);
 
 			string plantNome = textBoxNomePlant.Text;
 			string plantNazione = textBoxNazionePlant.Text;
@@ -97,7 +97,7 @@ namespace Prova
 			int plantIdCliente = formSelezionaCliente.GetIdClientes();
 			plantService.AggiungiPlant(plantIdCliente, plantNome, plantNazione, plantCitta, plantIndirizzo, plantTag);
 			loadTreeView();
-			formSelezionaPlant.loadListView(ldb);
+			formSelezionaPlant.loadListView(ldbPlants);
 			textBoxNomePlant.Clear();
 			textBoxNazionePlant.Clear();
 			textBoxCittaPlant.Clear();
@@ -116,7 +116,7 @@ namespace Prova
 		private void ButtonAddBench_Click(object sender, EventArgs e)
 		{
 			formSelezionaPlant = new FormSelezionaPlant();
-			formSelezionaPlant.loadListView(ldb);
+			formSelezionaPlant.loadListView(ldbPlants);
 			string bancoNome = textBoxNomeBanco.Text;
 			string bancoUrlGit = textBoxUrlGitBanco.Text;
 			string[] bancoTag = new string[1];
@@ -132,14 +132,14 @@ namespace Prova
 		private void loadTreeView()
 		{
 			treeView1.Nodes.Clear();
-			foreach (Client client in ldb.clients)
+			foreach (Client client in ldbClients.clients)
 			{
 				TreeNode clientNode = new TreeNode($"ID: {client.id}, Nome: {client.name}, Ragione fiscale: {client.ragioneFiscale}, Tag: {client.tags[0]}")
 				{
 					Name = client.id.ToString()
 				};
 				treeView1.Nodes.Add(clientNode);
-				foreach (Plant plant in ldb.plants)
+				foreach (Plant plant in ldbPlants.plants)
 				{
 					if (plant.idClient == client.id)
 					{
@@ -148,7 +148,7 @@ namespace Prova
 							Name = plant.id.ToString()
 						};
 						clientNode.Nodes.Add(plantNode);
-						foreach (Bench bench in ldb.benches)
+						foreach (Bench bench in ldbBenches.benches)
 						{
 							if (bench.idPlant == plant.id)
 							{
@@ -163,7 +163,7 @@ namespace Prova
 		private void ButtonModificaCliente_Click(object sender, EventArgs e)
 		{
 			formGestisciCliente = new FormGestisciCliente(true);
-			formGestisciCliente.loadListView(ldb);
+			formGestisciCliente.loadListView(ldbClients);
 			formGestisciCliente.ShowDialog();
 			int IdClienteModificato = formGestisciCliente.GetId();
 			string NomeClienteModificato = formGestisciCliente.GetNome();
@@ -175,7 +175,7 @@ namespace Prova
 		private void ButtonGestisciPlant_Click(object sender, EventArgs e)
 		{
 			formGestisciPlant = new FormGestisciPlant(true);
-			formGestisciPlant.loadListView(ldb);
+			formGestisciPlant.loadListView(ldbPlants);
 			formGestisciPlant.ShowDialog();
 			int IdPlantModificato = formGestisciPlant.GetId();
 			string NomePlantModificato = formGestisciPlant.GetNome();
@@ -189,7 +189,7 @@ namespace Prova
 		private void ButtonGestisciBanco_Click(object sender, EventArgs e)
 		{
 			formGestisciBanco = new FormGestisciBanco(true);
-			formGestisciBanco.loadListView(ldb);
+			formGestisciBanco.loadListView(ldbBenches);
 			formGestisciBanco.ShowDialog();
 			int IdBancoModificato = formGestisciBanco.GetId();
 			string NomeBancoModificato = formGestisciBanco.GetNome();
@@ -201,7 +201,7 @@ namespace Prova
 		private void ButtonDeleteBanco_Click(object sender, EventArgs e)
 		{
 			formGestisciBanco = new FormGestisciBanco(false);
-			formGestisciBanco.loadListView(ldb);
+			formGestisciBanco.loadListView(ldbBenches);
 			formGestisciBanco.ShowDialog();
 			int idBancDeleted = formGestisciBanco.GetId();
 			benchService.DeleteBanco(idBancDeleted);
@@ -210,7 +210,7 @@ namespace Prova
 		private void ButtonDeletePlant_Click(object sender, EventArgs e)
 		{
 			formGestisciPlant = new FormGestisciPlant(false);
-			formGestisciPlant.loadListView(ldb);
+			formGestisciPlant.loadListView(ldbPlants);
 			formGestisciPlant.ShowDialog();
 			int idPlantDeleted = formGestisciPlant.GetId();
 			plantService.DeletePlant(idPlantDeleted);
@@ -219,7 +219,7 @@ namespace Prova
 		private void ButtonDeleteClient_Click(object sender, EventArgs e)
 		{ 
 			formGestisciCliente = new FormGestisciCliente(false);
-			formGestisciCliente.loadListView(ldb);
+			formGestisciCliente.loadListView(ldbClients);
 			formGestisciCliente.ShowDialog();
 			int idClientDeleted = formGestisciCliente.GetId();
 			clientService.DeleteClient(idClientDeleted);

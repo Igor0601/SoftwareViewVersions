@@ -13,15 +13,22 @@ namespace Prova
 		public int plantId;
 		LoccioniDbContext ldb;
 		BenchService benchService;
-		public PlantService( BenchService benchService)
+		public PlantService(BenchService benchService)
 		{
-			
+			ldb = new LoccioniDbContext();
 			this.benchService = benchService;
 		}
 		public void AggiungiPlant(int plantIdClient, string plantName, string plantState, string plantCity, string plantAddress, string[] plantTag) 
 		{
 			Add(plantName);
 			plantId++;
+			foreach (Plant plant in ldb.plants)
+			{
+				if (plantId == plant.id)
+				{
+					plantId++;
+				}
+			}
 			ldb.Add(new Plant(plantId, plantIdClient, plantName, plantState, plantCity, plantAddress, plantTag));
 		}
 		public void Add(string name) 

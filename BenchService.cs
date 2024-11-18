@@ -19,6 +19,13 @@ namespace Prova
 		{
 			Add(benchName);
 			benchId++;
+			foreach (Bench bench in ldb.benches)
+			{
+				if (benchId == bench.id)
+				{
+					benchId++;
+				}
+			}
 			ldb.Add(new Bench(benchId, benchIdPlant, benchName, benchurlGit, benchTag));	
 		}
 		public void Add(string name) 

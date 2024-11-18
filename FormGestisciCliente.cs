@@ -36,16 +36,16 @@ namespace Prova
 			listViewGestisciCliente.Columns.Add("Nome", 150);
 			listViewGestisciCliente.Items.Clear();
 
-			foreach (Client cliente in ldb.clients)
+			foreach (Client client in ldb.clients)
 			{
-				ListViewItem clienteItem = new ListViewItem($"{cliente.id}")
+				ListViewItem clientItem = new ListViewItem($"{client.id}")
 				{
-					Name = cliente.id.ToString()
+					Name = client.id.ToString()
 				};
-				clienteItem.SubItems.Add($"{cliente.name}");
-				clienteItem.SubItems.Add($"{cliente.ragioneFiscale}");
-				clienteItem.SubItems.Add($"{cliente.tags[0]}");
-				listViewGestisciCliente.Items.Add(clienteItem);
+				clientItem.SubItems.Add($"{client.name}");
+				clientItem.SubItems.Add($"{client.ragioneFiscale}");
+				clientItem.SubItems.Add($"{client.tags[0]}");
+				listViewGestisciCliente.Items.Add(clientItem);
 			}
 		}
 		public void ButtonModificaCliente_Click(object sender, EventArgs e)
