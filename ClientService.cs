@@ -40,6 +40,7 @@ namespace Prova
 				if(client.name == name)
 				{
 					MessageBox.Show("Errore, Cliente già esistente");
+					return;
 				}
 			}
 		}
@@ -52,15 +53,14 @@ namespace Prova
 				clienteDaModificare.ragioneFiscale = RagioneFiscaleClienteModificato;
 				clienteDaModificare.tags = TagClienteModificato;	
 			}
-			//ldb.Update(new Client(clienteDaModificare.id, clienteDaModificare.name, clienteDaModificare.ragioneFiscale, clienteDaModificare.tags));
 			ldb.SaveChanges();
 		}
 		public void DeleteClient(int idClientDeleted) 
 		{
 			Client client = ldb.clients.FirstOrDefault(c => c.id == idClientDeleted);
-			if(client != null)
+			if (client != null)
 			{
-				plantService.Delete(idClientDeleted);
+				plantService.Delete(client.id);
 				ldb.Remove(client);
 				ldb.SaveChanges();
 			}

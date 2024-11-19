@@ -37,6 +37,10 @@ namespace Prova
 			listViewGestisciBanco.GridLines = true;
 			listViewGestisciBanco.Columns.Add($"ID: ", 50);
 			listViewGestisciBanco.Columns.Add($"Nome: ", 150);
+			listViewGestisciBanco.Columns.Add($"UrlGit: ", 150);
+			listViewGestisciBanco.Columns.Add($"Tag: ", 50);
+			listViewGestisciBanco.Columns.Add($"Plant: ", 150);
+			listViewGestisciBanco.Columns.Add($"Cliente: ", 150);
 			listViewGestisciBanco.Items.Clear();
 
 			foreach (Bench bench in ldb.benches)
@@ -48,6 +52,20 @@ namespace Prova
 				bancoItem.SubItems.Add($"{bench.name}");
 				bancoItem.SubItems.Add($"{bench.urlGit}");
 				bancoItem.SubItems.Add($"{bench.tags[0]}");
+				foreach (Plant plant in ldb.plants) 
+				{
+					if (plant.id == bench.idPlant) 
+					{
+						bancoItem.SubItems.Add($"{plant.name}");
+						foreach (Client client in ldb.clients)
+						{
+							if (client.id == plant.idClient)
+							{
+								bancoItem.SubItems.Add($"{client.name}");
+							}
+						}
+					}
+				}
 				listViewGestisciBanco.Items.Add(bancoItem);
 			}
 		}

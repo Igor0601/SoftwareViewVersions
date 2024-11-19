@@ -30,15 +30,19 @@ namespace Prova
 				}
 			}
 			ldb.Add(new Plant(plantId, plantIdClient, plantName, plantState, plantCity, plantAddress, plantTag));
+			ldb.SaveChanges();
 		}
 		public void Add(string name) 
 		{
-			foreach(Client client in ldb.clients)
+			foreach (Client client in ldb.clients)
 			{
 				foreach (Plant plant in ldb.plants)
 				{
-					if (plant.name == name)
+					if (plant.name == name) 
+					{
 						MessageBox.Show("Errore, Plant già esistente in questo cliente");
+						return;
+					}
 				}
 			}
 		}
@@ -53,24 +57,27 @@ namespace Prova
 				plantDaModificare.address = IndirizzoPlantModificato;
 				plantDaModificare.tags = TagPlantModificato;
 			}
+			ldb.SaveChanges();
 		}
 		public void DeletePlant(int idPlantDeleted) 
 		{
-			Plant plantDaEliminare = ldb.plants.FirstOrDefault(p => p.id == idPlantDeleted);
-			if (plantDaEliminare != null)
+			Plant plant = ldb.plants.FirstOrDefault(p => p.id == idPlantDeleted);
+			if (plant != null)
 			{
-				benchService.Delete(idPlantDeleted);
-				ldb.plants.Remove(plantDaEliminare);
+				benchService.Delete(plant.id);
+				ldb.Remove(plant);
+				ldb.SaveChanges();
 			}
 		}
 		public void Delete(int idClientDeleted) 
 		{
 			List<int> plantId = new List<int>();
-			foreach(Plant plant in ldb.plants) 
+			foreach (Plant plant in ldb.plants)
 			{
-				if(plant.idClient == idClientDeleted)
-					plantId.Add(plant.idClient);
+				if (plant.idClient == idClientDeleted)
+					plantId.Add(plant.id);
 			}
+
 			for(int i = 0; i < plantId.Count; i++)
 				DeletePlant(plantId[i]);
 		}
@@ -78,6 +85,5 @@ namespace Prova
 		{ 
 			return ldb;
 		}
-		
 	}
 }

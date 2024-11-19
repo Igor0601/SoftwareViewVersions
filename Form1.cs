@@ -38,7 +38,9 @@ namespace Prova
 			formGestisciCliente = new FormGestisciCliente(visualizza);
 			formGestisciPlant = new FormGestisciPlant(visualizza);
 			formGestisciBanco = new FormGestisciBanco(visualizza);
-			ldbClients = new LoccioniDbContext();
+			ldbClients = clientService.GetClientes();
+			ldbPlants = plantService.GetPlants();
+			ldbBenches = benchService.GetBenches();
 		}
 		private void ButtonTextBoxesClient_Click(object sender, EventArgs e)
 		{
@@ -203,8 +205,8 @@ namespace Prova
 			formGestisciBanco = new FormGestisciBanco(false);
 			formGestisciBanco.loadListView(ldbBenches);
 			formGestisciBanco.ShowDialog();
-			int idBancDeleted = formGestisciBanco.GetId();
-			benchService.DeleteBanco(idBancDeleted);
+			int idBenchDeleted = formGestisciBanco.GetId();
+			benchService.DeleteBench(idBenchDeleted);
 			loadTreeView();
 		}
 		private void ButtonDeletePlant_Click(object sender, EventArgs e)

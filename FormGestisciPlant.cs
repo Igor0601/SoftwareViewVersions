@@ -35,6 +35,11 @@ namespace Prova
 			listViewGestisciPlant.GridLines = true;
 			listViewGestisciPlant.Columns.Add($"ID: ", 50);
 			listViewGestisciPlant.Columns.Add($"Nome: ", 150);
+			listViewGestisciPlant.Columns.Add($"Nazione: ", 150);
+			listViewGestisciPlant.Columns.Add($"Citta: ", 150);
+			listViewGestisciPlant.Columns.Add($"Indirizzo: ", 150);
+			listViewGestisciPlant.Columns.Add($"Tag: ", 50);
+			listViewGestisciPlant.Columns.Add($"Cliente: ", 150);
 			listViewGestisciPlant.Items.Clear();
 
 			foreach (Plant plant in ldb.plants)
@@ -48,6 +53,11 @@ namespace Prova
 				plantItem.SubItems.Add($"{plant.city}");
 				plantItem.SubItems.Add($"{plant.address}");
 				plantItem.SubItems.Add($"{plant.tags[0]}");
+				foreach (Client client in ldb.clients) 
+				{
+					if (client.id == plant.idClient)
+						plantItem.SubItems.Add($"{client.name}");
+				}
 				listViewGestisciPlant.Items.Add(plantItem);
 			}
 		}

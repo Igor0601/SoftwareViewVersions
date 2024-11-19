@@ -22,17 +22,22 @@ namespace Prova
 			listViewPlants.View = View.Details;
 			listViewPlants.FullRowSelect = true;
 			listViewPlants.GridLines = true;
-			listViewPlants.Columns.Add($"ID: ", 50);
-			listViewPlants.Columns.Add($"Nome: ", 150);
+			listViewPlants.Columns.Add($"Id: ", 50);
+			listViewPlants.Columns.Add($"Nome: ", 50);
+			listViewPlants.Columns.Add($"Cliente: ", 150);
 			listViewPlants.Items.Clear();
-
 			foreach (Plant plant in ldb.plants) 
 			{
 				ListViewItem plantItem = new ListViewItem($"{plant.id}")
 				{
 					Name = plant.id.ToString()
 				};
-				plantItem.SubItems.Add($"{plant.name}");
+				plantItem.SubItems.Add(plant.name);
+				foreach (Client client in ldb.clients)
+				{
+					if (client.id == plant.idClient) 
+						plantItem.SubItems.Add(client.name);
+				}
 				listViewPlants.Items.Add(plantItem);
 			}
 		}

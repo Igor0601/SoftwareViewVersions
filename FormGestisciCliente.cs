@@ -34,6 +34,8 @@ namespace Prova
 			listViewGestisciCliente.GridLines = true;
 			listViewGestisciCliente.Columns.Add("ID", 50);
 			listViewGestisciCliente.Columns.Add("Nome", 150);
+			listViewGestisciCliente.Columns.Add("Ragione Fiscale: ", 150);
+			listViewGestisciCliente.Columns.Add("Tag: ", 50);
 			listViewGestisciCliente.Items.Clear();
 
 			foreach (Client client in ldb.clients)
