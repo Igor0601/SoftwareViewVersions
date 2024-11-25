@@ -9,6 +9,8 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Loccioni.SoftwareViewVersioning.DataModels;
+using Loccioni.SoftwareViewVersioning.Db;
 
 namespace Prova
 {

@@ -18,4 +18,9 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Loccioni.SoftwareViewVersioning.Services\Loccioni.SoftwareViewVersioning.Services.csproj" />
+    <ProjectReference Include="..\Loccioni.SoftwareViewVersioning\Loccioni.SoftwareViewVersioning.Db.csproj" />
+  </ItemGroup>
+
 </Project>

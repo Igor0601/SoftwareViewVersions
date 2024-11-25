@@ -9,6 +9,9 @@ using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Windows.Forms;
+using Loccioni.SoftwareViewVersioning.Services;
+using Loccioni.SoftwareViewVersioning.Db;
+using Loccioni.SoftwareViewVersioning.DataModels;
 
 namespace Prova
 {
