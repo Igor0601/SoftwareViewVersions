@@ -75,9 +75,9 @@ namespace Loccioni.SoftwareViewVersions.Services
 				DeleteBench(benchId[i]);
 			}
 		}
-		public LoccioniDbContext GetBenches()
+		public List<Bench> GetBenches()
 		{
-			return ldb;
+			return ldb.benches.ToList();
 		}
 	}
 }

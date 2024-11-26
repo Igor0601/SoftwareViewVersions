@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Loccioni.SoftwareViewVersions.DataModels;
 using Loccioni.SoftwareViewVersions.Db;
+using Loccioni.SoftwareViewVersions.Services;
 
 namespace Loccioni.SoftwareViewVersions.WinForms
 {
@@ -30,7 +31,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			else
 				ButtonModificaPlant.Visible = false;
 		}
-		public void loadListView(LoccioniDbContext ldb)
+		public void loadListView(PlantService plantService, ClientService clientService)
 		{
 			listViewGestisciPlant.View = View.Details;
 			listViewGestisciPlant.FullRowSelect = true;
@@ -44,7 +45,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			listViewGestisciPlant.Columns.Add($"Cliente: ", 150);
 			listViewGestisciPlant.Items.Clear();
 
-			foreach (Plant plant in ldb.plants)
+			foreach (Plant plant in plantService.GetPlants())
 			{
 				ListViewItem plantItem = new ListViewItem($"{plant.Id}")
 				{
@@ -55,7 +56,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 				plantItem.SubItems.Add($"{plant.City}");
 				plantItem.SubItems.Add($"{plant.Address}");
 				plantItem.SubItems.Add($"{plant.Tags[0]}");
-				foreach (Client client in ldb.clients) 
+				foreach (Client client in clientService.GetClientes()) 
 				{
 					if (client.Id == plant.IdClient)
 						plantItem.SubItems.Add($"{client.Name}");

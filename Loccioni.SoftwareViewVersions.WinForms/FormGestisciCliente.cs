@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Loccioni.SoftwareViewVersions.DataModels;
 using Loccioni.SoftwareViewVersions.Db;
+using Loccioni.SoftwareViewVersions.Services;
 
 namespace Loccioni.SoftwareViewVersions.WinForms
 {
@@ -29,7 +30,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			else
 				ButtonModificaCliente.Visible = false;
 		}
-		public void loadListView(LoccioniDbContext ldb)
+		public void loadListView(ClientService clientService)
 		{
 			listViewGestisciCliente.View = View.Details;
 			listViewGestisciCliente.FullRowSelect = true;
@@ -40,7 +41,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			listViewGestisciCliente.Columns.Add("Tag: ", 50);
 			listViewGestisciCliente.Items.Clear();
 
-			foreach (Client client in ldb.clients)
+			foreach (Client client in clientService.GetClientes())
 			{
 				ListViewItem clientItem = new ListViewItem($"{client.Id}")
 				{

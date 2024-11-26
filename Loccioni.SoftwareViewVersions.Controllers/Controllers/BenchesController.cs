@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Loccioni.SoftwareViewVersions.DataModels;
 using Loccioni.SoftwareViewVersions.Db;
+using Loccioni.SoftwareViewVersions.Services;
 
 namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 {
@@ -14,95 +15,40 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
     [ApiController]
     public class BenchesController : ControllerBase
     {
-        private readonly LoccioniDbContext _context;
+        private BenchService _benchService;
 
-        public BenchesController(LoccioniDbContext context)
+        public BenchesController()
         {
-            _context = context;
+            _benchService = new BenchService();
         }
 
         // GET: api/Benches
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Bench>>> Getbenches()
+        public List<Bench> Getbenches()
         {
-            return await _context.benches.ToListAsync();
+            return _benchService.GetBenches();
         }
 
-        // GET: api/Benches/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Bench>> GetBench(int id)
+        // PUT: api/Benches/
+        
+        [HttpPut]
+        public void PutBench(int id, string name, string urlGit, string[] tag)
         {
-            var bench = await _context.benches.FindAsync(id);
-
-            if (bench == null)
-            {
-                return NotFound();
-            }
-
-            return bench;
-        }
-
-        // PUT: api/Benches/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBench(int id, Bench bench)
-        {
-            if (id != bench.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(bench).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BenchExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+           _benchService.AggiornaBanco(id, name, urlGit, tag);
         }
 
         // POST: api/Benches
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Bench>> PostBench(Bench bench)
+        public void PostBench(int idPlant, string name, string urlGit, string[] tag)
         {
-            _context.benches.Add(bench);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetBench", new { id = bench.Id }, bench);
+            _benchService.AddBench(idPlant, name, urlGit, tag);
         }
 
         // DELETE: api/Benches/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBench(int id)
+        public void DeleteBench(int id)
         {
-            var bench = await _context.benches.FindAsync(id);
-            if (bench == null)
-            {
-                return NotFound();
-            }
-
-            _context.benches.Remove(bench);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool BenchExists(int id)
-        {
-            return _context.benches.Any(e => e.Id == id);
+           _benchService.DeleteBench(id); 
         }
     }
 }

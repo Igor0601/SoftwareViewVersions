@@ -1,6 +1,0 @@
-@Loccioni.SoftwareViewVersions.Controllers_HostAddress = http://localhost:5223
-
-GET {{Loccioni.SoftwareViewVersions.Controllers_HostAddress}}/WeatherForeCast/
-Accept: application/json
-
-###

@@ -7,102 +7,50 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Loccioni.SoftwareViewVersions.DataModels;
 using Loccioni.SoftwareViewVersions.Db;
+using Loccioni.SoftwareViewVersions.Services;
 
 namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+	[ApiController]
+	[Route("api/[controller]")]
+
     public class PlantsController : ControllerBase
     {
-        private readonly LoccioniDbContext _context;
+        private PlantService _plantService;
+        private BenchService _benchService;
 
-        public PlantsController(LoccioniDbContext context)
+        public PlantsController()
         {
-            _context = context;
+            _benchService = new BenchService();
+           _plantService = new PlantService(_benchService);
         }
 
         // GET: api/Plants
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Plant>>> Getplants()
+        public List<Plant> Getplants()
         {
-            return await _context.plants.ToListAsync();
+            return _plantService.GetPlants();
         }
 
-        // GET: api/Plants/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Plant>> GetPlant(int id)
+        // PUT: api/Plants
+        [HttpPut]
+        public void PutPlant(int id, string name, string state, string city, string address, string[] tag)
         {
-            var plant = await _context.plants.FindAsync(id);
-
-            if (plant == null)
-            {
-                return NotFound();
-            }
-
-            return plant;
-        }
-
-        // PUT: api/Plants/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlant(int id, Plant plant)
-        {
-            if (id != plant.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(plant).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PlantExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            _plantService.AggiornaPlant(id, name, state, city, address, tag);
         }
 
         // POST: api/Plants
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Plant>> PostPlant(Plant plant)
+        public void PostPlant(int idClient, string name, string state, string city, string address, string[] tag)
         {
-            _context.plants.Add(plant);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetPlant", new { id = plant.Id }, plant);
+            _plantService.AddPlant(idClient, name, state, city, address, tag);
         }
 
         // DELETE: api/Plants/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlant(int id)
+        public void DeletePlant(int id)
         {
-            var plant = await _context.plants.FindAsync(id);
-            if (plant == null)
-            {
-                return NotFound();
-            }
-
-            _context.plants.Remove(plant);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool PlantExists(int id)
-        {
-            return _context.plants.Any(e => e.Id == id);
+            _plantService.DeletePlant(id);
         }
     }
 }

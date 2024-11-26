@@ -25,9 +25,6 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 		FormGestisciCliente formGestisciCliente;
 		FormGestisciPlant formGestisciPlant;
 		FormGestisciBanco formGestisciBanco;
-		LoccioniDbContext ldbClients;
-		LoccioniDbContext ldbPlants;
-		LoccioniDbContext ldbBenches;
 		Random random = new Random();
 		public bool visualizza;
 		public Form1()
@@ -41,9 +38,6 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			formGestisciCliente = new FormGestisciCliente(visualizza);
 			formGestisciPlant = new FormGestisciPlant(visualizza);
 			formGestisciBanco = new FormGestisciBanco(visualizza);
-			ldbClients = clientService.GetClientes();
-			ldbPlants = plantService.GetPlants();
-			ldbBenches = benchService.GetBenches();
 		}
 		private void ButtonTextBoxesClient_Click(object sender, EventArgs e)
 		{
@@ -65,7 +59,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			
 			clientService.AddClient(clienteNome, clienteRagioneFiscale, clienteTag);
 			loadTreeView();
-			formSelezionaCliente.loadListView(ldbClients);
+			formSelezionaCliente.loadListView(clientService);
 			
 			textBoxNomeCliente.Clear();
 			textBoxRagioneFiscaleCliente.Clear();
@@ -90,7 +84,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			formSelezionaCliente = new FormSelezionaCliente();
 
 			//Gli passo l'oggetto clientService
-			formSelezionaCliente.loadListView(ldbPlants);
+			formSelezionaCliente.loadListView(clientService);
 
 			string plantNome = textBoxNomePlant.Text;
 			string plantNazione = textBoxNazionePlant.Text;
@@ -100,9 +94,9 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			plantTag[0] = textBoxTagPlant.Text;
 			formSelezionaCliente.ShowDialog();
 			int plantIdCliente = formSelezionaCliente.GetIdClientes();
-			plantService.AggiungiPlant(plantIdCliente, plantNome, plantNazione, plantCitta, plantIndirizzo, plantTag);
+			plantService.AddPlant(plantIdCliente, plantNome, plantNazione, plantCitta, plantIndirizzo, plantTag);
 			loadTreeView();
-			formSelezionaPlant.loadListView(ldbPlants);
+			formSelezionaPlant.loadListView(plantService, clientService);
 			textBoxNomePlant.Clear();
 			textBoxNazionePlant.Clear();
 			textBoxCittaPlant.Clear();
@@ -121,7 +115,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 		private void ButtonAddBench_Click(object sender, EventArgs e)
 		{
 			formSelezionaPlant = new FormSelezionaPlant();
-			formSelezionaPlant.loadListView(ldbPlants);
+			formSelezionaPlant.loadListView(plantService, clientService);
 			string bancoNome = textBoxNomeBanco.Text;
 			string bancoUrlGit = textBoxUrlGitBanco.Text;
 			string[] bancoTag = new string[1];
@@ -137,14 +131,14 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 		private void loadTreeView()
 		{
 			treeView1.Nodes.Clear();
-			foreach (Client client in ldbClients.clients)
+			foreach (Client client in clientService.GetClientes())
 			{
 				TreeNode clientNode = new TreeNode($"ID: {client.Id}, Nome: {client.Name}, Ragione fiscale: {client.RagioneFiscale}, Tag: {client.Tags[0]}")
 				{
 					Name = client.Id.ToString()
 				};
 				treeView1.Nodes.Add(clientNode);
-				foreach (Plant plant in ldbPlants.plants)
+				foreach (Plant plant in plantService.GetPlants())
 				{
 					if (plant.IdClient == client.Id)
 					{
@@ -153,7 +147,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 							Name = plant.Id.ToString()
 						};
 						clientNode.Nodes.Add(plantNode);
-						foreach (Bench bench in ldbBenches.benches)
+						foreach (Bench bench in benchService.GetBenches())
 						{
 							if (bench.IdPlant == plant.Id)
 							{
@@ -168,7 +162,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 		private void ButtonModificaCliente_Click(object sender, EventArgs e)
 		{
 			formGestisciCliente = new FormGestisciCliente(true);
-			formGestisciCliente.loadListView(ldbClients);
+			formGestisciCliente.loadListView(clientService);
 			formGestisciCliente.ShowDialog();
 			int IdClienteModificato = formGestisciCliente.GetId();
 			string NomeClienteModificato = formGestisciCliente.GetNome();
@@ -180,7 +174,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 		private void ButtonGestisciPlant_Click(object sender, EventArgs e)
 		{
 			formGestisciPlant = new FormGestisciPlant(true);
-			formGestisciPlant.loadListView(ldbPlants);
+			formGestisciPlant.loadListView(plantService, clientService);
 			formGestisciPlant.ShowDialog();
 			int IdPlantModificato = formGestisciPlant.GetId();
 			string NomePlantModificato = formGestisciPlant.GetNome();
@@ -194,7 +188,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 		private void ButtonGestisciBanco_Click(object sender, EventArgs e)
 		{
 			formGestisciBanco = new FormGestisciBanco(true);
-			formGestisciBanco.loadListView(ldbBenches);
+			formGestisciBanco.loadListView(benchService, plantService, clientService);
 			formGestisciBanco.ShowDialog();
 			int IdBancoModificato = formGestisciBanco.GetId();
 			string NomeBancoModificato = formGestisciBanco.GetNome();
@@ -206,7 +200,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 		private void ButtonDeleteBanco_Click(object sender, EventArgs e)
 		{
 			formGestisciBanco = new FormGestisciBanco(false);
-			formGestisciBanco.loadListView(ldbBenches);
+			formGestisciBanco.loadListView(benchService, plantService, clientService);
 			formGestisciBanco.ShowDialog();
 			int idBenchDeleted = formGestisciBanco.GetId();
 			benchService.DeleteBench(idBenchDeleted);
@@ -215,7 +209,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 		private void ButtonDeletePlant_Click(object sender, EventArgs e)
 		{
 			formGestisciPlant = new FormGestisciPlant(false);
-			formGestisciPlant.loadListView(ldbPlants);
+			formGestisciPlant.loadListView(plantService, clientService);
 			formGestisciPlant.ShowDialog();
 			int idPlantDeleted = formGestisciPlant.GetId();
 			plantService.DeletePlant(idPlantDeleted);
@@ -224,7 +218,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 		private void ButtonDeleteClient_Click(object sender, EventArgs e)
 		{ 
 			formGestisciCliente = new FormGestisciCliente(false);
-			formGestisciCliente.loadListView(ldbClients);
+			formGestisciCliente.loadListView(clientService);
 			formGestisciCliente.ShowDialog();
 			int idClientDeleted = formGestisciCliente.GetId();
 			clientService.DeleteClient(idClientDeleted);

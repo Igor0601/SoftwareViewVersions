@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Loccioni.SoftwareViewVersions.DataModels;
 using Loccioni.SoftwareViewVersions.Db;
+using Loccioni.SoftwareViewVersions.Services;
 
 namespace Loccioni.SoftwareViewVersions.WinForms
 {
@@ -19,7 +20,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 		{
 			InitializeComponent();
 		}
-		public void loadListView(LoccioniDbContext ldb) 
+		public void loadListView(PlantService plantService, ClientService clientService) 
 		{
 			listViewPlants.View = View.Details;
 			listViewPlants.FullRowSelect = true;
@@ -28,14 +29,14 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			listViewPlants.Columns.Add($"Nome: ", 50);
 			listViewPlants.Columns.Add($"Cliente: ", 150);
 			listViewPlants.Items.Clear();
-			foreach (Plant plant in ldb.plants) 
+			foreach (Plant plant in plantService.GetPlants()) 
 			{
 				ListViewItem plantItem = new ListViewItem($"{plant.Id}")
 				{
 					Name = plant.Id.ToString()
 				};
 				plantItem.SubItems.Add(plant.Name);
-				foreach (Client client in ldb.clients)
+				foreach (Client client in clientService.GetClientes())
 				{
 					if (client.Id == plant.IdClient) 
 						plantItem.SubItems.Add(client.Name);

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Loccioni.SoftwareViewVersions.DataModels;
 using Loccioni.SoftwareViewVersions.Db;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Loccioni.SoftwareViewVersions.Services
 {
@@ -13,6 +14,7 @@ namespace Loccioni.SoftwareViewVersions.Services
 		public int clientId;
 		LoccioniDbContext ldb;
 		PlantService plantService;
+
 		public ClientService(PlantService plantService)
 		{
 			this.plantService = plantService;
@@ -61,9 +63,10 @@ namespace Loccioni.SoftwareViewVersions.Services
 				ldb.SaveChanges();
 			}
 		}
-		public LoccioniDbContext GetClientes()
+		public List<Client> GetClientes()
 		{
-			return ldb;
+
+			return ldb.clients.ToList();
 		}
 	}
 }

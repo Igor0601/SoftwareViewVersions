@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Loccioni.SoftwareViewVersions.Db;
 using Loccioni.SoftwareViewVersions.DataModels;
+using Loccioni.SoftwareViewVersions.Services;
 
 namespace Loccioni.SoftwareViewVersions.WinForms
 {
@@ -32,7 +33,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			else
 				ButtonModificaBanco.Visible = false;
 		}
-		public void loadListView(LoccioniDbContext ldb)
+		public void loadListView(BenchService benchService, PlantService plantService, ClientService clientService)
 		{
 			listViewGestisciBanco.View = View.Details;
 			listViewGestisciBanco.FullRowSelect = true;
@@ -45,7 +46,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			listViewGestisciBanco.Columns.Add($"Cliente: ", 150);
 			listViewGestisciBanco.Items.Clear();
 
-			foreach (Bench bench in ldb.benches)
+			foreach (Bench bench in benchService.GetBenches())
 			{
 				ListViewItem bancoItem = new ListViewItem($"{bench.Id}")
 				{
@@ -54,12 +55,12 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 				bancoItem.SubItems.Add($"{bench.Name}");
 				bancoItem.SubItems.Add($"{bench.UrlGit}");
 				bancoItem.SubItems.Add($"{bench.Tags[0]}");
-				foreach (Plant plant in ldb.plants) 
+				foreach (Plant plant in plantService.GetPlants()) 
 				{
 					if (plant.Id == bench.IdPlant) 
 					{
 						bancoItem.SubItems.Add($"{plant.Name}");
-						foreach (Client client in ldb.clients)
+						foreach (Client client in clientService.GetClientes())
 						{
 							if (client.Id == plant.IdClient)
 							{

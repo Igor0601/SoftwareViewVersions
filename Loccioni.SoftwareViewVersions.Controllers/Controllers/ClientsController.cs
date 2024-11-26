@@ -11,99 +11,50 @@ using Loccioni.SoftwareViewVersions.Services;
 
 namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+	[ApiController]
+	[Route("api/[controller]")]
+    
     public class ClientsController : ControllerBase
     {
-        private readonly LoccioniDbContext _context;
-
-        public ClientsController(LoccioniDbContext context)
+       
+        private ClientService _clientService;
+        private PlantService _plantService;
+        private BenchService _benchService;
+        public ClientsController()
         {
-            _context = context;
+            _benchService = new BenchService();
+            _plantService = new PlantService(_benchService);
+            _clientService = new ClientService(_plantService);
         }
 
-        // GET: api/Clients
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Client>>> Getclients()
+        public List<Client> GetClients() 
         {
-            return await _context.clients.ToListAsync();
+            return _clientService.GetClientes();
         }
 
-        // GET: api/Clients/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Client>> GetClient(int id)
+		// PUT: api/Clients
+		[HttpPut]
+		public void PutClient(int id, string name, string ragioneFiscale, string[] tag)
+		{
+			_clientService.AggiornaCliente(id, name, ragioneFiscale, tag);
+           
+		}
+
+		// POST: api/Clients
+		[HttpPost]
+        public void PostClient(string name, string ragioneFiscale, string[] tag)
         {
-            var client = await _context.clients.FindAsync(id);
-
-            if (client == null)
-            {
-                return NotFound();
-            }
-
-            return client;
+           _clientService.AddClient(name, ragioneFiscale, tag);
+            
         }
 
-        // PUT: api/Clients/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutClient(int id, Client client)
+		// DELETE: api/Clients
+		[HttpDelete]
+        public void DeleteClient(int id)
         {
-            if (id != client.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(client).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ClientExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Clients
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Client>> PostClient(Client client)
-        {
-            _context.clients.Add(client);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetClient", new { id = client.Id }, client);
-        }
-
-        // DELETE: api/Clients/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClient(int id)
-        {
-            var client = await _context.clients.FindAsync(id);
-            if (client == null)
-            {
-                return NotFound();
-            }
-
-            _context.clients.Remove(client);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool ClientExists(int id)
-        {
-            return _context.clients.Any(e => e.Id == id);
+           _clientService.DeleteClient(id);
+          
         }
     }
 }

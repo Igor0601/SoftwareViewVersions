@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Loccioni.SoftwareViewVersions.DataModels;
 using Loccioni.SoftwareViewVersions.Db;
+using Loccioni.SoftwareViewVersions.Services;
 
 namespace Loccioni.SoftwareViewVersions.WinForms
 {
@@ -36,7 +37,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 
 			int numeroClienti1 = clientService1.GetClientes().Count();*/
 		}
-		public void loadListView(LoccioniDbContext ldb)
+		public void loadListView(ClientService clientService)
 		{
 			listViewClienti.View = View.Details;
 			listViewClienti.FullRowSelect = true;
@@ -45,7 +46,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			listViewClienti.Columns.Add("Nome", 150);
 			listViewClienti.Items.Clear();
 
-			foreach (Client client in ldb.clients)
+			foreach (Client client in clientService.GetClientes())
 			{
 				ListViewItem clientItem = new ListViewItem($"{client.Id}")
 				{
