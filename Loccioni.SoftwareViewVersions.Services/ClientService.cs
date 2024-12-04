@@ -65,8 +65,16 @@ namespace Loccioni.SoftwareViewVersions.Services
 		}
 		public List<Client> GetClientes()
 		{
-
 			return ldb.clients.ToList();
+		}
+		public Client GetClientByName(string name) 
+		{
+			foreach (Client client in GetClientes())
+			{
+				if (client.Name == name)
+					return client;
+			}
+			return null;
 		}
 	}
 }

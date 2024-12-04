@@ -27,17 +27,23 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
             _clientService = new ClientService(_plantService);
         }
 
-        [HttpGet]
+        [HttpGet()]
         public List<Client> GetClients() 
         {
             return _clientService.GetClientes();
         }
+        //GET: api/clients/name
+        [HttpGet("name")]
+        public Client GetClient(string name)
+        {
+            return _clientService.GetClientByName(name);
+        }
 
 		// PUT: api/Clients
 		[HttpPut]
-		public void PutClient(int id, string name, string ragioneFiscale, string[] tag)
+		public void PutClient(int id, string name, string ragioneFiscale,string[] tags)
 		{
-			_clientService.AggiornaCliente(id, name, ragioneFiscale, tag);
+			_clientService.AggiornaCliente(id, name, ragioneFiscale, tags);
            
 		}
 

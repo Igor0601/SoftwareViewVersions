@@ -9,6 +9,12 @@ namespace Loccioni.SoftwareViewVersions.Controllers
 			builder.Services.AddControllers();
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
+			builder.Services.AddCors(o =>
+				o.AddDefaultPolicy(p => p
+					.AllowAnyHeader()
+					.AllowAnyMethod()
+					.AllowAnyOrigin()
+				));
 
 			var app = builder.Build();
 
@@ -19,7 +25,7 @@ namespace Loccioni.SoftwareViewVersions.Controllers
 			}
 
 			app.UseAuthorization();
-
+			app.UseCors();
 			app.MapControllers();
 
 			app.Run();
