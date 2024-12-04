@@ -41,9 +41,9 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 
         // POST: api/Plants
         [HttpPost]
-        public void PostPlant(int idClient, string name, string state, string city, string address, string[] tag)
+        public void PostPlant(int idClient, string name, string state, string city, string address, string[] tag, double latitude, double longitude)
         {
-            _plantService.AddPlant(idClient, name, state, city, address, tag);
+            _plantService.AddPlant(idClient, name, state, city, address, tag, latitude, longitude);
         }
 
         // DELETE: api/Plants/5
