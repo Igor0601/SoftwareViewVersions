@@ -20,7 +20,7 @@ namespace Loccioni.SoftwareViewVersions.Services
 			this.plantService = plantService;
 			ldb = new LoccioniDbContext();
 		}
-		public void AddClient(string clientName, string clientRagioneFiscale, string[] clientTag)
+		public void AddClient(string clientName, string clientRagioneFiscale, string[] clientTag, byte[] clientLogo)
 		{
 			clientId++;
 			foreach (Client client in ldb.clients)
@@ -31,7 +31,7 @@ namespace Loccioni.SoftwareViewVersions.Services
 				}
 			}
 			Add(clientName);
-			ldb.Add(new Client(clientId, clientName, clientRagioneFiscale, clientTag));
+			ldb.Add(new Client(clientId, clientName, clientRagioneFiscale, clientTag, clientLogo));
 			ldb.SaveChanges();
 		}
 		public void Add(string name)

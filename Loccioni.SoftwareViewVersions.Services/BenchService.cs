@@ -79,5 +79,14 @@ namespace Loccioni.SoftwareViewVersions.Services
 		{
 			return ldb.benches.ToList();
 		}
+		public Bench GetBenchByName(string name)
+		{
+			foreach (Bench bench in GetBenches())
+			{
+				if (bench.Name == name)
+					return bench;
+			}
+			return null;
+		}
 	}
 }

@@ -29,9 +29,16 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
             return _benchService.GetBenches();
         }
 
-        // PUT: api/Benches/
-        
-        [HttpPut]
+		//GET: api/Benches/name
+		[HttpGet("name")]
+		public Bench GetBench(string name)
+		{
+			return _benchService.GetBenchByName(name);
+		}
+
+		// PUT: api/Benches/
+
+		[HttpPut]
         public void PutBench(int id, string name, string urlGit, string[] tag)
         {
            _benchService.AggiornaBanco(id, name, urlGit, tag);

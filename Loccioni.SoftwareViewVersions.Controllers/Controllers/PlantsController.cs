@@ -32,8 +32,15 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
             return _plantService.GetPlants();
         }
 
-        // PUT: api/Plants
-        [HttpPut]
+        //GET: api/Plants/name
+		[HttpGet("name")]
+		public Plant GetPlant(string name)
+		{
+			return _plantService.GetPlantByName(name);
+		}
+
+		// PUT: api/Plants
+		[HttpPut]
         public void PutPlant(int id, string name, string state, string city, string address, string[] tag)
         {
             _plantService.AggiornaPlant(id, name, state, city, address, tag);
@@ -41,9 +48,9 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 
         // POST: api/Plants
         [HttpPost]
-        public void PostPlant(int idClient, string name, string state, string city, string address, string[] tag, double latitude, double longitude)
+        public void PostPlant(int idClient, string name, string state, string city, string address, string[] tag)
         {
-            _plantService.AddPlant(idClient, name, state, city, address, tag, latitude, longitude);
+            _plantService.AddPlant(idClient, name, state, city, address, tag);
         }
 
         // DELETE: api/Plants/5

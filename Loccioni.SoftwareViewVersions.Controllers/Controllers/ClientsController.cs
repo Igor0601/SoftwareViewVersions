@@ -41,7 +41,7 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 
 		// PUT: api/Clients
 		[HttpPut]
-		public void PutClient(int id, string name, string ragioneFiscale,string[] tags)
+		public void PutClient(int id, string name, string ragioneFiscale, string[] tags)
 		{
 			_clientService.AggiornaCliente(id, name, ragioneFiscale, tags);
            
@@ -49,10 +49,9 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 
 		// POST: api/Clients
 		[HttpPost]
-        public void PostClient(string name, string ragioneFiscale, string[] tag)
+        public void PostClient(string name, string ragioneFiscale, string[] tag, byte[] logo)
         {
-           _clientService.AddClient(name, ragioneFiscale, tag);
-            
+           _clientService.AddClient(name, ragioneFiscale, tag, logo);
         }
 
 		// DELETE: api/Clients

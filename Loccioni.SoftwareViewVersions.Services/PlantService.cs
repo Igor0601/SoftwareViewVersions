@@ -19,7 +19,7 @@ namespace Loccioni.SoftwareViewVersions.Services
 			ldb = new LoccioniDbContext();
 			this.benchService = benchService;
 		}
-		public void AddPlant(int plantIdClient, string plantName, string plantState, string plantCity, string plantAddress, string[] plantTag, double plantLatitude, double plantLongitude)
+		public void AddPlant(int plantIdClient, string plantName, string plantState, string plantCity, string plantAddress, string[] plantTag)
 		{
 			Add(plantName);
 			plantId++;
@@ -30,7 +30,7 @@ namespace Loccioni.SoftwareViewVersions.Services
 					plantId++;
 				}
 			}
-			ldb.Add(new Plant(plantId, plantIdClient, plantName, plantState, plantCity, plantAddress, plantTag, plantLatitude, plantLongitude));
+			ldb.Add(new Plant(plantId, plantIdClient, plantName, plantState, plantCity, plantAddress, plantTag));
 			ldb.SaveChanges();
 		}
 		public void Add(string name)
@@ -83,6 +83,16 @@ namespace Loccioni.SoftwareViewVersions.Services
 		public List<Plant> GetPlants()
 		{
 			return ldb.plants.ToList();
+		}
+
+		public Plant GetPlantByName(string name)
+		{
+			foreach (Plant plant in GetPlants())
+			{
+				if (plant.Name == name)
+					return plant;
+			}
+			return null;
 		}
 	}
 }

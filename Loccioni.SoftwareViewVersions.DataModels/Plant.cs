@@ -18,7 +18,7 @@ namespace Loccioni.SoftwareViewVersions.DataModels
 		public double Latitude { get; set; }
 		public double Longitude { get; set; }
 		public string[] Tags { get; set; } = new string[10];
-		public Plant(int id, int idClient, string name, string state, string city, string address, string[] tags, double latitude, double longitude)
+		public Plant(int id, int idClient, string name, string state, string city, string address, string[] tags)
 		{
 			Id = id;
 			IdClient = idClient;
@@ -27,8 +27,6 @@ namespace Loccioni.SoftwareViewVersions.DataModels
 			City = city;
 			Address = address;
 			Tags = tags;
-			Latitude = latitude;
-			Longitude = longitude;
 		}
 	}
 }

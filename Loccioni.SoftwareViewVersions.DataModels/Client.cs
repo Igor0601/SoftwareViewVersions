@@ -13,13 +13,15 @@ namespace Loccioni.SoftwareViewVersions.DataModels
 		public string RagioneFiscale { get; set; }
 
 		public string[] Tags { get; set; } = new string[10];
+		public byte[] Logo { get; set; }
 
-		public Client(int id, string name, string ragioneFiscale, string[] tags)
+		public Client(int id, string name, string ragioneFiscale, string[] tags, byte[] logo)
 		{
 			Id = id;
 			Name = name;
 			RagioneFiscale = ragioneFiscale;
 			Tags = tags;
+			Logo = logo;
 		}
 	}
 }
