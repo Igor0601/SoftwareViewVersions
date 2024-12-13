@@ -16,7 +16,6 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
     
     public class ClientsController : ControllerBase
     {
-       
         private ClientService _clientService;
         private PlantService _plantService;
         private BenchService _benchService;
@@ -30,8 +29,15 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
         [HttpGet()]
         public List<Client> GetClients() 
         {
-            return _clientService.GetClientes();
+			return _clientService.GetClientes();
         }
+
+		[HttpGet("logo")]
+		public byte[] GetLogo() 
+		{
+			return _clientService.GetLogoClient();		
+		}
+		
         //GET: api/clients/name
         [HttpGet("name")]
         public Client GetClient(string name)
@@ -44,22 +50,33 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 		public void PutClient(int id, string name, string ragioneFiscale, string[] tags)
 		{
 			_clientService.AggiornaCliente(id, name, ragioneFiscale, tags);
-           
 		}
 
 		// POST: api/Clients
 		[HttpPost]
-        public void PostClient(string name, string ragioneFiscale, string[] tag, byte[] logo)
+        public void PostClient(string name, string ragioneFiscale, ClientInfos infos)
         {
-           _clientService.AddClient(name, ragioneFiscale, tag, logo);
-        }
+			byte[] fileBytes;
+			using (var ms = new MemoryStream())
+			{
+				infos.file.CopyTo(ms);
+				fileBytes = ms.ToArray();
+			}
+
+			_clientService.AddClient(name, ragioneFiscale, infos.tags, fileBytes);
+		}
 
 		// DELETE: api/Clients
 		[HttpDelete]
         public void DeleteClient(int id)
         {
-           _clientService.DeleteClient(id);
-          
+           _clientService.DeleteClient(id);        
         }
+    }
+
+    public class ClientInfos
+    {
+        public string[] tags { get; set; }
+        public IFormFile file { get; set; }
     }
 }

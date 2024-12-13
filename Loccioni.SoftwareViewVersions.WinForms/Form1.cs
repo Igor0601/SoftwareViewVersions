@@ -58,7 +58,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			byte[] clientLogo = null;
 			clienteTag[0] = textBoxTagCliente.Text;
 			
-			clientService.AddClient(clienteNome, clienteRagioneFiscale, clienteTag, clientLogo);
+			clientService.AddClient(clienteNome, clienteRagioneFiscale, clienteTag);
 			loadTreeView();
 			formSelezionaCliente.loadListView(clientService);
 			
