@@ -48,9 +48,15 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 
         // POST: api/Plants
         [HttpPost]
-        public void PostPlant(int idClient, string name, string state, string city, string address, string[] tag)
+        public void PostPlant(int idClient, string name, string state, string city, string address, PlantInfos infos)
         {
-            _plantService.AddPlant(idClient, name, state, city, address, tag);
+			byte[] fileBytes;
+			using (var ms = new MemoryStream())
+			{
+				infos.file.CopyTo(ms);
+				fileBytes = ms.ToArray();
+			}
+			_plantService.AddPlant(idClient, name, state, city, address, infos.tags, fileBytes);
         }
 
         // DELETE: api/Plants/5
@@ -59,5 +65,11 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
         {
             _plantService.DeletePlant(id);
         }
-    }
+
+		public class PlantInfos
+		{
+			public string[] tags { get; set; }
+			public IFormFile file { get; set; }
+		}
+	}
 }

@@ -10,7 +10,7 @@ namespace Loccioni.SoftwareViewVersions.Db.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+            /*migrationBuilder.CreateTable(
                 name: "benches",
                 columns: table => new
                 {
@@ -19,7 +19,8 @@ namespace Loccioni.SoftwareViewVersions.Db.Migrations
                     IdPlant = table.Column<int>(type: "INTEGER", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     UrlGit = table.Column<string>(type: "TEXT", nullable: false),
-                    Tags = table.Column<string>(type: "TEXT", nullable: false)
+                    Tags = table.Column<string>(type: "TEXT", nullable: false),
+                    Logo = table.Column<byte[]>(type: "BLOB", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,12 +56,13 @@ namespace Loccioni.SoftwareViewVersions.Db.Migrations
                     Address = table.Column<string>(type: "TEXT", nullable: false),
                     Latitude = table.Column<double>(type: "REAL", nullable: false),
                     Longitude = table.Column<double>(type: "REAL", nullable: false),
-                    Tags = table.Column<string>(type: "TEXT", nullable: false)
+                    Tags = table.Column<string>(type: "TEXT", nullable: false),
+                    Logo = table.Column<byte[]>(type: "BLOB", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_plants", x => x.Id);
-                });
+                });*/
         }
 
         /// <inheritdoc />

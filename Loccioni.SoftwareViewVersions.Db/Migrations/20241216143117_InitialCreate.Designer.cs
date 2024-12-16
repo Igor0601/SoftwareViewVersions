@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Loccioni.SoftwareViewVersions.Db.Migrations
 {
     [DbContext(typeof(LoccioniDbContext))]
-    [Migration("20241210080329_InitialCreate")]
+    [Migration("20241216143117_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,6 +27,10 @@ namespace Loccioni.SoftwareViewVersions.Db.Migrations
 
                     b.Property<int>("IdPlant")
                         .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("Logo")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -91,6 +95,10 @@ namespace Loccioni.SoftwareViewVersions.Db.Migrations
 
                     b.Property<double>("Latitude")
                         .HasColumnType("REAL");
+
+                    b.Property<byte[]>("Logo")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
 
                     b.Property<double>("Longitude")
                         .HasColumnType("REAL");

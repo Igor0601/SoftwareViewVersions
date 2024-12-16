@@ -46,9 +46,15 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 
         // POST: api/Benches
         [HttpPost]
-        public void PostBench(int idPlant, string name, string urlGit, string[] tag)
+        public void PostBench(int idPlant, string name, string urlGit, BenchInfos infos)
         {
-            _benchService.AddBench(idPlant, name, urlGit, tag);
+			byte[] fileBytes;
+			using (var ms = new MemoryStream())
+			{
+				infos.file.CopyTo(ms);
+				fileBytes = ms.ToArray();
+			}
+			_benchService.AddBench(idPlant, name, urlGit, infos.tags, fileBytes);
         }
 
         // DELETE: api/Benches/5
@@ -57,5 +63,11 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
         {
            _benchService.DeleteBench(id); 
         }
-    }
+
+		public class BenchInfos
+		{
+			public string[] tags { get; set; }
+			public IFormFile file { get; set; }
+		}
+	}
 }

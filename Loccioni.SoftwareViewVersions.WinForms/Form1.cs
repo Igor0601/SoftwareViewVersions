@@ -58,7 +58,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			byte[] clientLogo = null;
 			clienteTag[0] = textBoxTagCliente.Text;
 			
-			clientService.AddClient(clienteNome, clienteRagioneFiscale, clienteTag);
+			clientService.AddClient(clienteNome, clienteRagioneFiscale, clienteTag, clientLogo);
 			loadTreeView();
 			formSelezionaCliente.loadListView(clientService);
 			
@@ -93,9 +93,10 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			string plantIndirizzo = textBoxIndirizzoPlant.Text;
 			string[] plantTag = new string[1];
 			plantTag[0] = textBoxTagPlant.Text;
+			byte[] plantLogo = null;
 			formSelezionaCliente.ShowDialog();
 			int plantIdCliente = formSelezionaCliente.GetIdClientes();
-			plantService.AddPlant(plantIdCliente, plantNome, plantNazione, plantCitta, plantIndirizzo, plantTag);
+			plantService.AddPlant(plantIdCliente, plantNome, plantNazione, plantCitta, plantIndirizzo, plantTag, plantLogo);
 			loadTreeView();
 			formSelezionaPlant.loadListView(plantService, clientService);
 			textBoxNomePlant.Clear();
@@ -121,9 +122,10 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			string bancoUrlGit = textBoxUrlGitBanco.Text;
 			string[] bancoTag = new string[1];
 			bancoTag[0] = textBoxTagBanco.Text;
+			byte[] bancoLogo = null;
 			formSelezionaPlant.ShowDialog();
 			int bancoIdPlant = formSelezionaPlant.GetIdPlant();
-			benchService.AddBench(bancoIdPlant, bancoNome, bancoUrlGit, bancoTag);
+			benchService.AddBench(bancoIdPlant, bancoNome, bancoUrlGit, bancoTag, bancoLogo);
 			loadTreeView();
 			textBoxNomeBanco.Clear();
 			textBoxUrlGitBanco.Clear();

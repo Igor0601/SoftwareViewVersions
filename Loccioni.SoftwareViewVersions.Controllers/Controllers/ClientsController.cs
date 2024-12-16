@@ -62,7 +62,6 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 				infos.file.CopyTo(ms);
 				fileBytes = ms.ToArray();
 			}
-
 			_clientService.AddClient(name, ragioneFiscale, infos.tags, fileBytes);
 		}
 

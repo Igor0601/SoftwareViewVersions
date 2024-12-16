@@ -13,15 +13,17 @@ namespace Loccioni.SoftwareViewVersions.DataModels
 		public string Name { get; set; }
 		public string UrlGit { get; set; }
 
-		public string[] Tags { get; set; } = new string[10];
+		public string[] Tags { get; set; }
+		public byte[] Logo { get; set; }
 
-		public Bench(int id, int idPlant, string name, string urlGit, string[] tags)
+		public Bench(int id, int idPlant, string name, string urlGit, string[] tags, byte[] logo)
 		{
 			Id = id;
 			IdPlant = idPlant;
 			Name = name;
 			UrlGit = urlGit;
 			Tags = tags;
+			Logo = logo;
 		}
 	}
 }

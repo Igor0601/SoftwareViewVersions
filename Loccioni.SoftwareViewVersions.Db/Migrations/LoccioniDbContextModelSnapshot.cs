@@ -25,6 +25,10 @@ namespace Loccioni.SoftwareViewVersions.Db.Migrations
                     b.Property<int>("IdPlant")
                         .HasColumnType("INTEGER");
 
+                    b.Property<byte[]>("Logo")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -88,6 +92,10 @@ namespace Loccioni.SoftwareViewVersions.Db.Migrations
 
                     b.Property<double>("Latitude")
                         .HasColumnType("REAL");
+
+                    b.Property<byte[]>("Logo")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
 
                     b.Property<double>("Longitude")
                         .HasColumnType("REAL");

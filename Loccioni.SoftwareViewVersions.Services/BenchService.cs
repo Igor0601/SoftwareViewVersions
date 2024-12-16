@@ -16,7 +16,7 @@ namespace Loccioni.SoftwareViewVersions.Services
 		{
 			ldb = new LoccioniDbContext();
 		}
-		public void AddBench(int benchIdPlant, string benchName, string benchurlGit, string[] benchTag)
+		public void AddBench(int benchIdPlant, string benchName, string benchurlGit, string[] benchTag, byte[] logo)
 		{
 			Add(benchName);
 			benchId++;
@@ -27,7 +27,7 @@ namespace Loccioni.SoftwareViewVersions.Services
 					benchId++;
 				}
 			}
-			ldb.Add(new Bench(benchId, benchIdPlant, benchName, benchurlGit, benchTag));
+			ldb.Add(new Bench(benchId, benchIdPlant, benchName, benchurlGit, benchTag, logo));
 			ldb.SaveChanges();
 		}
 		public void Add(string name)
