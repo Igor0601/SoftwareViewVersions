@@ -11,9 +11,9 @@ namespace Loccioni.SoftwareViewVersions.DataModels
 	public class PlantInfos
 	{
 		public string[] Tags { get; set; }
-		[JsonConverter(typeof(JsonToByteArrayConverter))]
+		[JsonConverter(typeof(JsonToByteArrayConverterPlant))]
 		public byte[] Logo { get; set; }
-		internal sealed class JsonToByteArrayConverter : JsonConverter<byte[]?>
+		internal sealed class JsonToByteArrayConverterPlant : JsonConverter<byte[]?>
 		{
 			// Converts base64 encoded string to byte[].
 			public override byte[]? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

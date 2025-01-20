@@ -20,7 +20,16 @@ namespace Loccioni.SoftwareViewVersions.Services
 			this.plantService = plantService;
 			ldb = new LoccioniDbContext();
 		}
-		public void AddClient(string clientName, string clientRagioneFiscale, string[] tags, byte[] logo)
+
+		public LoccioniDbContext LoccioniDbContext
+		{
+			get => default;
+			set
+			{
+			}
+		}
+
+		public void AddClient(string name, string ragioneFiscale, string[] tags, byte[] logo)
 		{
 			clientId++;
 			foreach (Client client in ldb.clients)
@@ -30,8 +39,8 @@ namespace Loccioni.SoftwareViewVersions.Services
 					clientId++;
 				}
 			}
-			Add(clientName);
-			ldb.Add(new Client(clientId, clientName, clientRagioneFiscale, tags, logo));
+			Add(name);
+			ldb.Add(new Client(clientId, name, ragioneFiscale, tags, logo));
 			ldb.SaveChanges();
 		}
 		public void Add(string name)
@@ -42,20 +51,20 @@ namespace Loccioni.SoftwareViewVersions.Services
 					throw new Exception("Errore, Cliente già esistente");
 			}
 		}
-		public void AggiornaCliente(int IdClienteModificato, string NomeClienteModificato, string RagioneFiscaleClienteModificato, string[] TagClienteModificato)
+		public void UploadClient(int id, string name, string ragioneFiscale, string[] tag)
 		{
-			Client clienteDaModificare = ldb.clients.FirstOrDefault(c => c.Id == IdClienteModificato);
+			Client clienteDaModificare = ldb.clients.FirstOrDefault(c => c.Id == id);
 			if (clienteDaModificare != null)
 			{
-				clienteDaModificare.Name = NomeClienteModificato;
-				clienteDaModificare.RagioneFiscale = RagioneFiscaleClienteModificato;
-				clienteDaModificare.Tags = TagClienteModificato;
+				clienteDaModificare.Name = name;
+				clienteDaModificare.RagioneFiscale = ragioneFiscale;
+				clienteDaModificare.Tags = tag;
 			}
 			ldb.SaveChanges();
 		}
-		public void DeleteClient(int idClientDeleted)
+		public void DeleteClient(int id)
 		{
-			Client client = ldb.clients.FirstOrDefault(c => c.Id == idClientDeleted);
+			Client client = ldb.clients.FirstOrDefault(c => c.Id == id);
 			if (client != null)
 			{
 				plantService.Delete(client.Id);

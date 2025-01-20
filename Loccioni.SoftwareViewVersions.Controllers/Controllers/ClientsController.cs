@@ -49,7 +49,7 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 		[HttpPut]
 		public void PutClient(int id, string name, string ragioneFiscale, string[] tags)
 		{
-			_clientService.AggiornaCliente(id, name, ragioneFiscale, tags);
+			_clientService.UploadClient(id, name, ragioneFiscale, tags);
 		}
 
 		// POST: api/Clients

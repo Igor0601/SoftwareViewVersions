@@ -19,9 +19,18 @@ namespace Loccioni.SoftwareViewVersions.Services
 			ldb = new LoccioniDbContext();
 			this.benchService = benchService;
 		}
-		public void AddPlant(int plantIdClient, string plantName, string plantState, string plantCity, string plantAddress, string[] plantTag, byte[] logo)
+
+		public LoccioniDbContext LoccioniDbContext
 		{
-			Add(plantName);
+			get => default;
+			set
+			{
+			}
+		}
+
+		public void AddPlant(int idClient, string name, string state, string city, string address, string[] tags, byte[] logo)
+		{
+			Add(name);
 			plantId++;
 			foreach (Plant plant in ldb.plants)
 			{
@@ -30,7 +39,7 @@ namespace Loccioni.SoftwareViewVersions.Services
 					plantId++;
 				}
 			}
-			ldb.Add(new Plant(plantId, plantIdClient, plantName, plantState, plantCity, plantAddress, plantTag, logo));
+			ldb.Add(new Plant(plantId, idClient, name, state, city, address, tags, logo));
 			ldb.SaveChanges();
 		}
 		public void Add(string name)
@@ -44,22 +53,22 @@ namespace Loccioni.SoftwareViewVersions.Services
 				}
 			}
 		}
-		public void AggiornaPlant(int IdPlantModificato, string NomePlantModificato, string NazionePlantModificato, string CittaPlantModificato, string IndirizzoPlantModificato, string[] TagPlantModificato)
+		public void UploadPlant(int id, string name, string state, string city, string address, string[] tag)
 		{
-			Plant plantDaModificare = ldb.plants.FirstOrDefault(p => p.Id == IdPlantModificato);
+			Plant plantDaModificare = ldb.plants.FirstOrDefault(p => p.Id == id);
 			if (plantDaModificare != null)
 			{
-				plantDaModificare.Name = NomePlantModificato;
-				plantDaModificare.State = NazionePlantModificato;
-				plantDaModificare.City = CittaPlantModificato;
-				plantDaModificare.Address = IndirizzoPlantModificato;
-				plantDaModificare.Tags = TagPlantModificato;
+				plantDaModificare.Name = name;
+				plantDaModificare.State = state;
+				plantDaModificare.City = city;
+				plantDaModificare.Address = address;
+				plantDaModificare.Tags = tag;
 			}
 			ldb.SaveChanges();
 		}
-		public void DeletePlant(int idPlantDeleted)
+		public void DeletePlant(int id)
 		{
-			Plant plant = ldb.plants.FirstOrDefault(p => p.Id == idPlantDeleted);
+			Plant plant = ldb.plants.FirstOrDefault(p => p.Id == id);
 			if (plant != null)
 			{
 				benchService.Delete(plant.Id);
@@ -67,12 +76,12 @@ namespace Loccioni.SoftwareViewVersions.Services
 				ldb.SaveChanges();
 			}
 		}
-		public void Delete(int idClientDeleted)
+		public void Delete(int idClient)
 		{
 			List<int> plantId = new List<int>();
 			foreach (Plant plant in ldb.plants)
 			{
-				if (plant.IdClient == idClientDeleted)
+				if (plant.IdClient == idClient)
 					//Popolo la lista con gli ID  del plant, non con gli IDCLIENTE
 					plantId.Add(plant.Id);
 			}

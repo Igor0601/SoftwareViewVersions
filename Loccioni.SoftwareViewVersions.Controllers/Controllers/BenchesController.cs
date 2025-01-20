@@ -36,12 +36,12 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 			return _benchService.GetBenchByName(name);
 		}
 
-		// PUT: api/Benches/
+		// PUT: api/Benches
 
 		[HttpPut]
         public void PutBench(int id, string name, string urlGit, string[] tag)
         {
-           _benchService.AggiornaBanco(id, name, urlGit, tag);
+           _benchService.UploadBench(id, name, urlGit, tag);
         }
 
         // POST: api/Benches

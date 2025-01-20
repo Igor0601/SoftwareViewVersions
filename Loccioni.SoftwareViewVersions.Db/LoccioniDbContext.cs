@@ -13,6 +13,10 @@ namespace Loccioni.SoftwareViewVersions.Db
 		public DbSet<Client> clients { get; set; }
 		public DbSet<Plant> plants { get; set; }
 		public DbSet<Bench> benches { get; set; }
+		public DbSet<Server> servers { get; set; }
+		public DbSet<ServerVersions> serverVersions { get; set; }
+		public DbSet<PackageVersions> packageVersions { get; set; }
+		public DbSet<Package> packages { get; set; }
 		public string DbPath { get; }
 		public LoccioniDbContext()
 		{

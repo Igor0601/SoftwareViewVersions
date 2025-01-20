@@ -171,7 +171,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			string NomeClienteModificato = formGestisciCliente.GetNome();
 			string RagioneFiscaleClienteModificato = formGestisciCliente.GetRagioneFiscale();
 			string[] TagClienteModificato = formGestisciCliente.GetTag();
-			clientService.AggiornaCliente(IdClienteModificato, NomeClienteModificato, RagioneFiscaleClienteModificato, TagClienteModificato);
+			clientService.UploadClient(IdClienteModificato, NomeClienteModificato, RagioneFiscaleClienteModificato, TagClienteModificato);
 			loadTreeView();
 		}
 		private void ButtonGestisciPlant_Click(object sender, EventArgs e)
@@ -185,7 +185,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			string CittaPlantModificato = formGestisciPlant.GetCitta();
 			string IndirizzoPlantModificato = formGestisciPlant.GetIndirizzo();
 			string[] TagPlantModificato = formGestisciPlant.GetTag();
-			plantService.AggiornaPlant(IdPlantModificato, NomePlantModificato, NazionePlantModificato, CittaPlantModificato, IndirizzoPlantModificato, TagPlantModificato);
+			plantService.UploadPlant(IdPlantModificato, NomePlantModificato, NazionePlantModificato, CittaPlantModificato, IndirizzoPlantModificato, TagPlantModificato);
 			loadTreeView();
 		}
 		private void ButtonGestisciBanco_Click(object sender, EventArgs e)
@@ -197,7 +197,7 @@ namespace Loccioni.SoftwareViewVersions.WinForms
 			string NomeBancoModificato = formGestisciBanco.GetNome();
 			string UrlGitBancoModificato = formGestisciBanco.GetUrlGit();
 			string[] TagBancoModificato = formGestisciBanco.GetTag();
-			benchService.AggiornaBanco(IdBancoModificato, NomeBancoModificato, UrlGitBancoModificato, TagBancoModificato);
+			benchService.UploadBench(IdBancoModificato, NomeBancoModificato, UrlGitBancoModificato, TagBancoModificato);
 			loadTreeView();
 		}
 		private void ButtonDeleteBanco_Click(object sender, EventArgs e)

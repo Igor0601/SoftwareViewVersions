@@ -16,9 +16,10 @@ namespace Loccioni.SoftwareViewVersions.Services
 		{
 			ldb = new LoccioniDbContext();
 		}
-		public void AddBench(int benchIdPlant, string benchName, string benchurlGit, string[] benchTag, byte[] logo)
+
+		public void AddBench(int idPlant, string name, string urlGit, string[] tags, byte[] logo)
 		{
-			Add(benchName);
+			Add(name);
 			benchId++;
 			foreach (Bench bench in ldb.benches)
 			{
@@ -27,7 +28,7 @@ namespace Loccioni.SoftwareViewVersions.Services
 					benchId++;
 				}
 			}
-			ldb.Add(new Bench(benchId, benchIdPlant, benchName, benchurlGit, benchTag, logo));
+			ldb.Add(new Bench(benchId, idPlant, name, urlGit, tags.Where(t=>!string.IsNullOrEmpty(t)).ToArray(), logo));
 			ldb.SaveChanges();
 		}
 		public void Add(string name)
@@ -41,32 +42,32 @@ namespace Loccioni.SoftwareViewVersions.Services
 				}
 			}
 		}
-		public void AggiornaBanco(int IdBancoModificato, string NomeBancoModificato, string UrlGitBancoModificato, string[] TagBancoModificato)
+		public void UploadBench(int id, string name, string urlGit, string[] tag)
 		{
-			Bench bancoDaModificare = ldb.benches.FirstOrDefault(b => b.Id == IdBancoModificato);
+			Bench bancoDaModificare = ldb.benches.FirstOrDefault(b => b.Id == id);
 			if (bancoDaModificare != null)
 			{
-				bancoDaModificare.Name = NomeBancoModificato;
-				bancoDaModificare.UrlGit = UrlGitBancoModificato;
-				bancoDaModificare.Tags = TagBancoModificato;
+				bancoDaModificare.Name = name;
+				bancoDaModificare.UrlGit = urlGit;
+				bancoDaModificare.Tags = tag;
 			}
 			ldb.SaveChanges();
 		}
-		public void DeleteBench(int idBenchDeleted)
+		public void DeleteBench(int id)
 		{
-			Bench bench = ldb.benches.FirstOrDefault(b => b.Id == idBenchDeleted);
+			Bench bench = ldb.benches.FirstOrDefault(b => b.Id == id);
 			if (bench != null)
 			{
 				ldb.Remove(bench);
 				ldb.SaveChanges();
 			}
 		}
-		public void Delete(int idPlantDeleted)
+		public void Delete(int idPlant)
 		{
 			List<int> benchId = new List<int>();
 			foreach (Bench bench in ldb.benches)
 			{
-				if (bench.IdPlant == idPlantDeleted)
+				if (bench.IdPlant == idPlant)
 					//Popolo la lista con gli ID del benh, non con gli IDPLANT
 					benchId.Add(bench.Id);
 			}

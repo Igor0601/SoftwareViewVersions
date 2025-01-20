@@ -11,11 +11,11 @@ namespace Loccioni.SoftwareViewVersions.DataModels
 	public class ClientInfo
 	{
 		public string[] Tags { get; set; }
-		[JsonConverter(typeof(JsonToByteArrayConverter))]
+		[JsonConverter(typeof(JsonToByteArrayConverterClient))]
 		public byte[] Logo { get; set; }
 	}
 
-	internal sealed class JsonToByteArrayConverter : JsonConverter<byte[]?>
+	internal sealed class JsonToByteArrayConverterClient : JsonConverter<byte[]?>
 	{
 		// Converts base64 encoded string to byte[].
 		public override byte[]? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

@@ -43,7 +43,7 @@ namespace Loccioni.SoftwareViewVersions.Controllers.Controllers
 		[HttpPut]
         public void PutPlant(int id, string name, string state, string city, string address, string[] tag)
         {
-            _plantService.AggiornaPlant(id, name, state, city, address, tag);
+            _plantService.UploadPlant(id, name, state, city, address, tag);
         }
 
         // POST: api/Plants
