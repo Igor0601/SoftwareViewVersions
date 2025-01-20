@@ -11,6 +11,7 @@ namespace Loccioni.SoftwareViewVersions.DataModels
 	public class ClientInfo
 	{
 		public string[] Tags { get; set; }
+
 		[JsonConverter(typeof(JsonToByteArrayConverterClient))]
 		public byte[] Logo { get; set; }
 	}

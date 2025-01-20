@@ -15,8 +15,7 @@ namespace Loccioni.SoftwareViewVersions.Db
 		public DbSet<Bench> benches { get; set; }
 		public DbSet<Server> servers { get; set; }
 		public DbSet<ServerVersions> serverVersions { get; set; }
-		public DbSet<PackageVersions> packageVersions { get; set; }
-		public DbSet<Package> packages { get; set; }
+		public DbSet<Updates> updates { get; set; }
 		public string DbPath { get; }
 		public LoccioniDbContext()
 		{
@@ -26,6 +25,7 @@ namespace Loccioni.SoftwareViewVersions.Db
 			//Creo le tabelle del mio database
 			Database.EnsureCreated();
 		}
+		
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 			=> optionsBuilder.UseSqlite($"Data Source = {DbPath}");
 	}

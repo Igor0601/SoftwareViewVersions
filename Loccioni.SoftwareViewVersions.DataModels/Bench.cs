@@ -12,7 +12,6 @@ namespace Loccioni.SoftwareViewVersions.DataModels
 		public int IdPlant { get; set; }
 		public string Name { get; set; }
 		public string UrlGit { get; set; }
-
 		public string[] Tags { get; set; }
 		public byte[] Logo { get; set; }
 

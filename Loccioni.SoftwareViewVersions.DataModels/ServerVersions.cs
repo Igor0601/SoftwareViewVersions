@@ -14,39 +14,39 @@ namespace Loccioni.SoftwareViewVersions.DataModels
 		public string Version { get; set; }
 		public string Supervisor { get; set; }
 		public string Configurator { get; set; }
-		public string Worker_Health { get; set; }
-		public string Worker_Models { get; set; }
-		public string Worker_Programs { get; set; }
-		public string Worker_Resource { get; set; }
-		public string Worker_Results { get; set; }
-		public string Worker_Topology { get; set; }
-		public string Worker_Wip { get; set; }
-		public string Uploader_Health { get; set; }
-		public string Uploader_Report { get; set; }
+		public string WorkerHealth { get; set; }
+		public string WorkerModels { get; set; }
+		public string WorkerPrograms { get; set; }
+		public string WorkerResource { get; set; }
+		public string WorkerResults { get; set; }
+		public string WorkerTopology { get; set; }
+		public string WorkerWip { get; set; }
+		public string UploaderHealth { get; set; }
+		public string UploaderReport { get; set; }
 		public string Link { get; set; }
 		public string[] Tags { get; set; }
-		public string Ref_Person { get; set; }
-		public DateTime Date_Upload { get; set; }
-		public ServerVersions(int id, int idServer, string version, string supervisor, string configrator, string worker_health, string worker_models, string worker_programs, string worker_resource, string worker_results, string worker_topology, string worker_wip, string uploader_health, string uploader_report, string link, string[] tags, string ref_person, DateTime date_upload) 
+		public string RefPerson { get; set; }
+		public string DateUpload { get; set; }
+		public ServerVersions(int id, int idServer, string version, string supervisor, string configurator, string workerHealth, string workerModels, string workerPrograms, string workerResource, string workerResults, string workerTopology, string workerWip, string uploaderHealth, string uploaderReport, string link, string[] tags, string refPerson, string dateUpload) 
 		{
 			Id = id;
 			IdServer = idServer;
 			Version = version;
 			Supervisor = supervisor;
-			Configurator = configrator;
-			Worker_Health = worker_health;
-			Worker_Models = worker_models;
-			Worker_Programs = worker_programs;
-			Worker_Resource = worker_resource;
-			Worker_Results = worker_results;
-			Worker_Topology = worker_topology;
-			Worker_Wip = worker_wip;
-			Uploader_Health = uploader_health;
-			Uploader_Report = uploader_report;
+			Configurator = configurator;
+			WorkerHealth = workerHealth;
+			WorkerModels = workerModels;
+			WorkerPrograms = workerPrograms;
+			WorkerResource = workerResource;
+			WorkerResults = workerResults;
+			WorkerTopology = workerTopology;
+			WorkerWip = workerWip;
+			UploaderHealth = uploaderHealth;
+			UploaderReport = uploaderReport;
 			Link = link;
 			Tags = tags;
-			Ref_Person = ref_person;
-			Date_Upload = date_upload;
+			RefPerson = refPerson;
+			DateUpload = dateUpload;
 		}
 	}
 }
